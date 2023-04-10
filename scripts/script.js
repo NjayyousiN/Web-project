@@ -3,8 +3,8 @@ class ConfPlus {
 //Constructor intialize values
     constructor() {
         this.usersData ={};
-        this.fetchUserData();
-}
+        this.getUserData();
+    }
 
 //Function to retreive the user email and password from the database (users.json)
     async getUserData() {
@@ -27,7 +27,6 @@ class ConfPlus {
             console.log('Invalid Format!');
             return false;
         }
-
     }
 
 //Password format validation
@@ -44,7 +43,7 @@ class ConfPlus {
     }
 
 //Login function
-    login() {
+    login(email, password) {
         //First, validate email/pass formats
         if(!this.isEmailValid(email) || !this.isPasswordValid(password)) {
             return { success: false, message: 'Incorrect email or password.' };
@@ -63,15 +62,12 @@ class ConfPlus {
         if(userFound) {
             document.querySelector("#login").style.display = 'none';
             document.querySelector("#submit-paper").style.display = 'block';
-            return { success: false, message: 'Login was successful.' };
+            return { success: true, message: 'Login was successful.' };
 
         } else {
             return { success: false, message: 'Logn was unsuccessful.' };
         }
     }
-
-
-
 }
 
 const confPlus = new ConfPlus();
