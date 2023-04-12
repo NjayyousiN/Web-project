@@ -4,8 +4,6 @@ class ConfPlus {
     constructor() {
         this.usersData ={};
         this.institutionsData = [];
-        this.getUserData();
-        this.getInstitutionsData();
     }
 
 //Function to retreive the user email and password from the database (users.json)
@@ -26,6 +24,11 @@ class ConfPlus {
         } catch (err) {
             console.error('An error occured during fetching institutions data.', err)
         }
+    }
+
+    async init() {
+        await this.getUserData();
+        await this.getInstitutionsData();
     }
 
 //Email format validation
@@ -93,7 +96,7 @@ class ConfPlus {
     //Submit the paper
     async submitPaper(paper_title, paper_abstract, selectedAuthors, presenterIndex, attachedPDFs) {
         
-        const pdfUpload = await fetch('TEMPORARY', {
+        const pdfUpload = await fetch('/api/upload', {
 
         method: 'POST',
         body: attachedPDFs,
@@ -118,7 +121,7 @@ class ConfPlus {
         reviewers: [],
     };
 
-        const savePaper = await fetch('TEMPORARY', {
+        const savePaper = await fetch('/api/papers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -137,9 +140,10 @@ class ConfPlus {
 
     //Populate the selection list of authors with values from 'users.json'
     async populateAuthors() {
-        await confPlus.fetchUserData();
+        await confPlus.init();
         const authorsSelect = document.querySelector('#authors');
         const presenterSelect = document.querySelector('#presenter');
+        const affiliationsSelect = document.querySelector('#affiliations');
 
         this.usersData.authors.forEach((author, index) => {
             const option = document.createElement('option');
@@ -147,12 +151,18 @@ class ConfPlus {
             option.textContent = `${author.firstName} ${author.lastName} (${author.email})`;
             authorsSelect.appendChild(option);
 
-            const presenterOption = document.createElement('option');
-            presenterOption.value = index;
-            presenterOption.textContent = `${author.firstName} ${author.lastName} (${author.email})`;
+            const presenterOption = option.cloneNode(true);
             presenterSelect.appendChild(presenterOption);
         });
+
+        this.institutionsData.forEach((institution, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = institution;
+            affiliationsSelect.appendChild(option);
+        });
     }
+
 
     //Assign 2 random reviewers to each paper
     async assignReviewers(paperId) {
@@ -187,8 +197,10 @@ class ConfPlus {
 
 }
 
+//Instantiation 
 const confPlus = new ConfPlus();
-    
+confPlus.init();
+
 //Action to be taken after clicking on "login" button 
     document.querySelector('#login-container').addEventListener("submit", (e) =>{
         e.preventDefault();
@@ -229,7 +241,7 @@ const confPlus = new ConfPlus();
         const authorsSelect = document.querySelector('#authors');
         const selectedAuthors = Array.from(authorsSelect.selectedOptions).map(option => confPlus.usersData.authors[option.value]);
         const presenterIndex = document.querySelector('#presenter').value;
-        const attachedPDFs = document.querySelector('#pdf-file').files[0];
+        const attachedPDFs = document.querySelector('#pdf-file').files;
 
         await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenterIndex, attachedPDFs);
     });
