@@ -210,8 +210,24 @@ class ConfPlus {
             list.dataset.paperID = paper.id;
             papersList.appendChild(list);
     });
+
 }
- 
+
+    showReviewForm(paper) {
+        const reviewForm = document.querySelector('#review-form');
+        
+        const overallEvaluation = reviewForm.querySelector('#overall-evaluation');
+        const paperContribution = reviewForm.querySelector('#paper-contribution');
+        const paperStrengths = reviewForm.querySelector('#paper-strengths');
+        const paperWeaknesses = reviewForm.querySelector('#paper-weaknesses');
+
+        overallEvaluation.value = paper.review ? paper.review.overallEvaluation : '';
+        paperContribution.value = paper.review ? paper.review.paperContribution : '';
+        paperStrengths.value = paper.review ? paper.review.paperStrengths : '';
+        paperWeaknesses.value = paper.review ? paper.review.paperWeaknesses : '';
+
+        reviewForm.style.display = 'block';
+}    
 
 }
 
