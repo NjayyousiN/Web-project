@@ -192,9 +192,7 @@ class ConfPlus {
         }
 
         console.log('Reviewers assigned successfully');
-    }
-            
-
+    }        
 }
 
 //Instantiation 
@@ -245,5 +243,3 @@ confPlus.init();
 
         await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenterIndex, attachedPDFs);
     });
-
-    
