@@ -192,7 +192,27 @@ class ConfPlus {
         }
 
         console.log('Reviewers assigned successfully');
-    }        
+    }       
+    
+        async getAssignedPapers(email) {
+            const response = await fetch('/api/papers', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const assignedPapers = await response.json();
+            const papersList = document.querySelector('#papers-list');
+            
+            assignedPapers.forEach((paper) => {
+            const list = document.createElement('li');
+            list.textContent = paper.title;
+            list.dataset.paperID = paper.id;
+            papersList.appendChild(list);
+    });
+}
+ 
+
 }
 
 //Instantiation 
