@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login page</title>
     <link rel="stylesheet" href="/styles/style.css" />
+
 </head>
 
 
@@ -14,8 +15,8 @@
     <header>
         <!-- <h1>ConfPlus</h1> -->
     </header>
-    <div class="logincontainer">
-        <form action="login">
+    <!-- <div class="logincontainer" id="main-content">
+        <form action="login" id="login-form">
             <h2>Sign in</h2>
             <div>
                 <label for="Email">Email </label>
@@ -26,10 +27,28 @@
                 <input class="login-btn" type="password" id="password" name="password" required>
             </div>
             <input class="btn" type="submit" value="Cancel">
-            <input class="btn" type="submit" value="Login">
+            <input class="btn-login" type="submit" value="Login">
+        </form>
+    </div> -->
+
+    <div id="main-content">
+    <div class="container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="email" id="Email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="btn-login">Login</button>
         </form>
     </div>
 
+</div>
+    <script src="script.js"></script>
 </body>
 
 </html>

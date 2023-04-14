@@ -9,8 +9,15 @@ class ConfPlus {
 //Function to retreive the user email and password from the database (users.json)
     async getUserData() {
         try {
-            const response = await fetch('users.json');
-            this.usersData = await response.json();
+            const response = await fetch('http://localhost:3000/api/users', {
+                method: "GET"
+            });
+            const data = await response.json();
+            this.usersData = {
+                organizers : data.filter(u => u.role === 'organizer'),
+                reviewers : data.filter(u => u.role === 'reviewer'),
+                authors: data.filter(u => u.role === 'author')
+            };
         } catch (err) {
             console.error('An error occured during fetching user data.', err);
         }
@@ -36,10 +43,10 @@ class ConfPlus {
         var validChrs = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
         if(email.match(validChrs)) {
-            console.log('Valid Format');
+            console.log('Valid Email Format');
             return true;
         } else {
-            console.log('Invalid Format!');
+            console.log('Invalid Email Format!');
             return false;
         }
     }
@@ -49,10 +56,10 @@ class ConfPlus {
         var validChrs=  /^[A-Za-z]\w{7,14}$/;
 
         if(password.match(validChrs)) {
-            console.log('Valid Format');
+            console.log('Valid Password Format');
             return true;
         } else {
-            console.log('Invalid Format');
+            console.log('Invalid Password Format');
             return false;
         }
     }
@@ -76,9 +83,11 @@ class ConfPlus {
 
         //When user is found, change the style of the specified ids.
         if(userFound) {
-            document.querySelector("#login").style.display = 'none';
-            document.querySelector("#submit-paper").style.display = 'block';
-            return { success: true, message: 'Login was successful.' };
+            // document.querySelector("#login").style.display = 'none';
+            // document.querySelector("#submit-paper").style.display = 'block';
+
+            
+            return { success: true, message: 'Login was successful.', user: userFound };
 
         } else {
             return { success: false, message: 'Logn was unsuccessful.' };
@@ -236,32 +245,36 @@ const confPlus = new ConfPlus();
 confPlus.init();
 
 //Action to be taken after clicking on "login" button 
-    document.querySelector('#login-container').addEventListener("submit", (e) =>{
+    document.querySelector('#login-form').addEventListener("submit", async (e) =>{
         e.preventDefault();
 
-        const email = document.querySelector('#email_input').value;
-        const password = document.querySelector('#password_input').value;
-        const login_attempt = confPlus.login(email, password);
+        const email = document.querySelector('#Email').value;
+        const password = document.querySelector('#password').value;
+        const login_attempt = await confPlus.login(email, password);
 
         //If the login was successful, redirect to the referenced pages according to the user type
         if(login_attempt.success) {
             console.log(login_attempt.message);
+            const userFound = login_attempt.user;
 
-            if(userFound.authors) {
-                loadPage('authors-page.html');
+            if(userFound.role === 'author') {
+                await confPlus.loadPage('authors-page.html');
             }
         
-            if(userFound.reviewers) {
-                loadPage('reviewers-page.html');
+            if(userFound.role === 'reviewer') {
+                await confPlus.loadPage('reviewers-page.html');
             }
 
-            if(userFound.organizers) {
-                loadPage('organizers-page.html');
+            if(userFound.role === 'organizer') {
+                await confPlus.loadPage('organizers-page.html');
             }
+
+            document.querySelector("#login-form").style.display = 'none';
+
         } else {
             console.log(login_attempt.message);
             //else, refresh page
-            loadPage('login-page.html');
+            await confPlus.loadPage('login-page.html');
         }
 });
 
