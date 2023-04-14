@@ -86,7 +86,9 @@ class ConfPlus {
             // document.querySelector("#login").style.display = 'none';
             // document.querySelector("#submit-paper").style.display = 'block';
 
-            
+            const redirectUrl = `/${userFound.role}-page.html`;
+            window.location.href = redirectUrl;
+
             return { success: true, message: 'Login was successful.', user: userFound };
 
         } else {
@@ -96,10 +98,13 @@ class ConfPlus {
     
     //Loads the selected page
     async loadPage(pageUrl) {
-        const mainContent = document.querySelector("#main-content");
-        const page = await fetch(pageUrl);
-        const pageHTMLContent = await page.text();
-        mainContent.innerHTML = pageHTMLContent;
+        // const mainContent = document.querySelector("#main-content");
+        // const page = await fetch(pageUrl);
+        // const pageHTMLContent = await page.text();
+        // mainContent.innerHTML = pageHTMLContent;
+
+        window.location.replace(pageUrl);
+
     }
 
     //Submit the paper
@@ -256,20 +261,28 @@ confPlus.init();
         if(login_attempt.success) {
             console.log(login_attempt.message);
             const userFound = login_attempt.user;
+            let redirectUrl = '';
 
             if(userFound.role === 'author') {
-                await confPlus.loadPage('authors-page.html');
+                // await confPlus.loadPage('submit-paper-page.html');
+                redirectUrl = 'submit-paper-page.html';
+
             }
         
             if(userFound.role === 'reviewer') {
-                await confPlus.loadPage('reviewers-page.html');
+                // await confPlus.loadPage('review-papers.html');
+                redirectUrl = 'review-papers.html';
+
             }
 
             if(userFound.role === 'organizer') {
-                await confPlus.loadPage('organizers-page.html');
-            }
+                // await confPlus.loadPage('schedule-editor.html');
+                redirectUrl = 'schedule-editor.html';
 
-            document.querySelector("#login-form").style.display = 'none';
+            }
+            window.location.replace(redirectUrl);
+
+            // document.querySelector("#login-form").style.display = 'none';
 
         } else {
             console.log(login_attempt.message);
