@@ -18,9 +18,9 @@ export async function POST(request) {
     try {
 
         const body = await request.json();
-        if ("paper_title" in body && "paper_abstract" in body && "paper_authors" in body) {
+        if ("paper_title" in body && "paper_abstract" in body && "paper_authors" in body && "presenter" in body && "pdfUrl" in body) {
             const paper = await papersRepo.createPaper({paper_title: body.paper_title, paper_abstract: body.paper_abstract,
-                 paper_authors: body.paper_authors});
+                 paper_authors: body.paper_authors, presenter: body.presenter, pdfUrl: body.pdfUrl});
             return Response.json(paper, {status: 201 });        
         }
         return Response.json( {message: "Invalid parameters"}, { status: 400})
