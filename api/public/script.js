@@ -123,50 +123,55 @@ class ConfPlus {
 /*                                       CASE 2 STARTS HERE                                       */
 
 //Submit the paper
-    async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs) {
-        
-        const pdfUpload = await fetch('http://localhost:3000/api/upload', {
-        method: 'POST',
-        body: attachedPdfs,
+async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs) {
+  try {
+    console.log('Attaching PDFs...');
+    const pdfUpload = await fetch('http://localhost:3000/api/upload', {
+      method: 'POST',
+      body: attachedPdfs,
     });
 
-        if (!pdfUpload.ok) {
-        console.error('An Error occured while attaching the PDF ');
-        return;
+    if (!pdfUpload.ok) {
+      console.error('An Error occured while attaching the PDF ');
+      return;
     }
-        const pdfUrl = await pdfUpload.text();
 
-// Save paper details
-        const paperDetails = {
-        date: Date.now(),
-        title: paper_title,
-        abstract: paper_abstract,
-        authors: selectedAuthors,
-        presenter: presenter,
-        pdfURL: pdfUrl,
-        // reviewers: [],
+    console.log('PDFs attached successfully. Uploading paper details...');
+    const pdfUrl = await pdfUpload.text();
+
+    const paperDetails = {
+      title: paper_title,
+      abstract: paper_abstract,
+      authors: selectedAuthors,
+      presenter: presenter,
+      pdfURL: pdfUrl,
     };
 
-        const savePaper = await fetch('http://localhost:3000/api/papers', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paperDetails),
+    const savePaper = await fetch('http://localhost:3000/api/papers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(paperDetails),
     });
 
-        if (!savePaper.ok) {
-        console.error('An Error occured while saving the paper details');
-        return;
+    if (!savePaper.ok) {
+      console.error('An Error occured while saving the paper details');
+      return;
     }
 
-        // Assign reviewers to papers
-        // await this.assignReviewers(paperDetails.id);
-    }
+    console.log('Paper saved successfully:', paperDetails);
+  } catch (err) {
+    console.error('An error occured while submitting the paper:', err);
+  }
+
+    // Assign reviewers to papers
+    await this.assignReviewers(paperDetails.id);     
+}
 
 //Assign 2 random reviewers to each paper
     async assignReviewers(paperId) {
-        const reviewers_list = this.usersData.reviewers;
+        const reviewers_list = this.getUserData().reviewer;
         const selectedReviewers = [];
 
         while (selectedReviewers.length < 2) {
@@ -213,24 +218,24 @@ class ConfPlus {
         .join(" ");
     }
 
-    async getAssignedPapers(email) {
-        const response = await fetch('http://localhost:3000/api/papers', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
-        });
+//     async getAssignedPapers(email) {
+//         const response = await fetch('http://localhost:3000/api/papers', {
+//         method: 'GET',
+//         headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ email })
+//         });
 
-        const assignedPapers = await response.json();
-        const papersList = document.querySelector('#papers-list');
+//         const assignedPapers = await response.json();
+//         const papersList = document.querySelector('#papers-list');
         
-        assignedPapers.forEach((paper) => {
-        const list = document.createElement('li');
-        list.textContent = paper.title;
-        list.dataset.paperID = paper.id;
-        papersList.appendChild(list);
-});
+//         assignedPapers.forEach((paper) => {
+//         const list = document.createElement('li');
+//         list.textContent = paper.title;
+//         list.dataset.paperID = paper.id;
+//         papersList.appendChild(list);
+// });
 
-}
+// }
    
 
 //case 3
@@ -415,10 +420,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs);
 
-        let redirectUrl = '';
-        redirectUrl = 'schedule-editor.html';
-            
-        window.location.replace(redirectUrl);
+        // let redirectUrl = '';
+        // redirectUrl = 'schedule-editor.html';
+        // window.location.replace(redirectUrl);
 
         });
 
