@@ -28,13 +28,31 @@ class ConfPlus {
 //Function to retreive the author affiliations.
     async getInstitutionsData() {
         try {
-            const response = await fetch('http://localhost:3000/api/institutions');
-            this.institutionsData = await response.json();
+            const response = await fetch('http://localhost:3000/api/institutions', {
+                method: "GET"
+            });
+
+            return this.institutionsData = await response.json();
         } catch (err) {
             console.error('An error occured during fetching institutions data.', err)
         }
     }
 
+//Function to retreive the authors data.
+    async getAuthorsData() {
+        try {
+            const response = await fetch('http://localhost:3000/api/articleAuthors', {
+                method: "GET"
+            });
+
+            return this.AuthorsData = await response.json();
+
+        } catch (err) {
+            console.error('An error occured during fetching institutions data.', err)
+        }
+    }
+
+    
 //Initiating get functions
     async init() {
         await this.getUserData();
@@ -105,7 +123,7 @@ class ConfPlus {
 /*                                       CASE 2 STARTS HERE                                       */
 
 //Submit the paper
-    async submitPaper(paper_title, paper_abstract, selectedAuthors, presenterIndex, attachedPdfs) {
+    async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs) {
         
         const pdfUpload = await fetch('http://localhost:3000/api/upload', {
         method: 'POST',
@@ -120,20 +138,20 @@ class ConfPlus {
 
 // Save paper details
         const paperDetails = {
-        id: Date.now(),
-        paper_title,
-        paper_abstract,
+        date: Date.now(),
+        title: paper_title,
+        abstract: paper_abstract,
         authors: selectedAuthors,
-        presenter: selectedAuthors[presenterIndex],
-        pdfUrl,
+        presenter: presenter,
+        pdfURL: pdfUrl,
         // reviewers: [],
     };
 
         const savePaper = await fetch('http://localhost:3000/api/papers', {
         method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(paperDetails),
     });
 
@@ -143,7 +161,7 @@ class ConfPlus {
     }
 
         // Assign reviewers to papers
-        await this.assignReviewers(paperDetails.id);
+        // await this.assignReviewers(paperDetails.id);
     }
 
 //Assign 2 random reviewers to each paper
@@ -162,9 +180,9 @@ class ConfPlus {
 
         const updateResponse = await fetch(`/api/papers/${paperId}/assign-reviewers`, {
         method: 'PUT',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ reviewers_list: selectedReviewers }),
         });
 
@@ -176,47 +194,41 @@ class ConfPlus {
         console.log('Reviewers assigned successfully');
     } 
 
-//Populate the selection list of authors with values from 'users.json'
-    // async populateAuthors() {
-    //     await confPlus.init();
-    //     const authorsSelect = document.querySelector('#authors');
-    //     const presenterSelect = document.querySelector('#presenter');
-    //     const affiliationsSelect = document.querySelector('#affiliations');
+//Fill drop-down lists
+    async populateDropList() {
 
-    //     this.usersData.authors.forEach((author, index) => {
-    //         const option = document.createElement('option');
-    //         option.value = index;
-    //         option.textContent = `${author.firstName} ${author.lastName} (${author.email})`;
-    //         authorsSelect.appendChild(option);
+        const institutions = await confPlus.getInstitutionsData();
+        document.querySelector("#affiliation").innerHTML = institutions.map((institution) =>
+        `<option value ="${institution.institution}"> ${institution.institution}</option>`)
+        .join(" ");
 
-    //         const presenterOption = option.cloneNode(true);
-    //         presenterSelect.appendChild(presenterOption);
-    //     });
+        const authors = await confPlus.getAuthorsData();
+        document.querySelector("#presenters").innerHTML = authors.map((author) =>
+        `<option value ="${author.fname}"> ${author.fname}</option>`)
+        .join(" ");
 
-    //     this.institutionsData.forEach((institution, index) => {
-    //         const option = document.createElement('option');
-    //         option.value = index;
-    //         option.textContent = institution;
-    //         affiliationsSelect.appendChild(option);
-    //     });
-    // }      
-    
-        async getAssignedPapers(email) {
-            const response = await fetch('http://localhost:3000/api/papers', {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
-            });
+        const presenters = await confPlus.getAuthorsData();
+        document.querySelector("#removeAuthor").innerHTML = presenters.map((author) =>
+        `<option value ="${author.fname}"> ${author.fname}</option>`)
+        .join(" ");
+    }
 
-            const assignedPapers = await response.json();
-            const papersList = document.querySelector('#papers-list');
-            
-            assignedPapers.forEach((paper) => {
-            const list = document.createElement('li');
-            list.textContent = paper.title;
-            list.dataset.paperID = paper.id;
-            papersList.appendChild(list);
-    });
+    async getAssignedPapers(email) {
+        const response = await fetch('http://localhost:3000/api/papers', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        const assignedPapers = await response.json();
+        const papersList = document.querySelector('#papers-list');
+        
+        assignedPapers.forEach((paper) => {
+        const list = document.createElement('li');
+        list.textContent = paper.title;
+        list.dataset.paperID = paper.id;
+        papersList.appendChild(list);
+});
 
 }
    
@@ -248,8 +260,14 @@ confPlus.init();
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-//Action to be taken after clicking on "login" button 
-    document.querySelector('#login-form').addEventListener("submit", async (e) =>{
+    const addedAuthors = [];
+    const loginForm = document.querySelector("#login-form");
+    const submitPaperForm = document.querySelector("#submit_paper");
+
+//Validate that the form exists in the page before adding the event listener
+    if (loginForm) {
+      // Action to be taken after clicking on "login" button
+        loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         console.log('Login form submitted');
 
@@ -257,71 +275,152 @@ document.addEventListener("DOMContentLoaded", async () => {
         const password = document.querySelector('#password').value;
         const login_attempt = await confPlus.login(email, password);
 
-        //If the login was successful, redirect to the referenced pages according to the user type
-        if(login_attempt.success) {
+        // If the login was successful, redirect to the referenced pages according to the user type
+        if (login_attempt.success) {
             console.log(login_attempt.message);
             const userFound = login_attempt.user;
             let redirectUrl = '';
 
-            if(userFound.role === 'author') {
-                redirectUrl = 'submit-paper-page.html';
-            }
-        
-            if(userFound.role === 'reviewer') {
-                redirectUrl = 'review-papers.html';
+            if (userFound.role === 'author') {
+            redirectUrl = 'submit-paper-page.html';
             }
 
-            if(userFound.role === 'organizer') {
-                redirectUrl = 'schedule-editor.html';
+            if (userFound.role === 'reviewer') {
+            redirectUrl = 'review-papers.html';
+            }
+
+            if (userFound.role === 'organizer') {
+            redirectUrl = 'schedule-editor.html';
             }
 
             window.location.replace(redirectUrl);
 
         } else {
-            //Log it
+            // Log it
             console.log(login_attempt.message);
 
-            //else, refresh page and send an alert
+            // Else, refresh page and send an alert
             await confPlus.loadPage('login-page.html');
             alert('Wrong Email or Password. Retry again.');
         }
-});
+        });
+    }
+
+//Validate that the form exists in the page before adding the event listener
+    if (submitPaperForm) {
+        
+        //Populate Lists
+        await confPlus.populateDropList();
+        
+        //Actions to be taken after clicking on "Add Author" button
+        document.querySelector("#add-author").addEventListener("click", async (e) => {
+
+            e.preventDefault();
+
+            const author_fname = document.querySelector("#first_name").value;
+            const author_lname = document.querySelector("#last_name").value;
+            const author_email = document.querySelector("#email").value;
+            const author_affiliation = document.querySelector("#affiliation").value;
+
+            const authorDetails = await fetch('http://localhost:3000/api/articleAuthors', {
+            method: 'POST',
+
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            fname: author_fname,
+            lname: author_lname,
+            email: author_email,
+            affiliation: author_affiliation
+            }),
+        });
+
+          if (authorDetails.ok) {
+
+                //Update the lists
+                await confPlus.populateDropList();
+                const addedAuthor = await authorDetails.json();
+                addedAuthors.push(addedAuthor);
+
+                // temporary code for testing
+                console.log(addedAuthors);
+                const authorsContainer = document.querySelector("#authors-container");
+                const authorDiv = document.createElement("div");
+                authorDiv.classList.add("author");
+                authorDiv.innerHTML = `
+                    <h3>${addedAuthor.fname} ${addedAuthor.lname}</h3>
+                    <p>Email: ${addedAuthor.email}</p>
+                    <p>Affiliation: ${addedAuthor.affiliation}</p>
+                `;
+                authorsContainer.appendChild(authorDiv);
+                } else {
+                    console.error("An Error occured while adding an author");
+                }
+
+        });
+
+        //Actions to be taken after clicking on "Remove Author" button
+        document.querySelector("#remove-author").addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const author_fname = document.querySelector("#removeAuthor").value;
+            const authors = await confPlus.getAuthorsData();
+            const selectedAuthor = authors.find((author) => author.fname === author_fname)
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`, {
+                method: 'DELETE'
+                });               
+            } catch (err) {
+                console.error('An error occured during fetching institutions data.', err);
+            }
 
 
-//Actions to be taken after clicking on "submit" button
-    document.querySelector('#submit-paper').addEventListener('submit', async (e) => {
+          if (selectedAuthor) {
+                //Update the lists
+                await confPlus.populateDropList();
+                } else {
+                    console.error("An Error occured while removing an author");
+                }
+        });
+
+        // Actions to be taken after clicking on "submit" button
+        submitPaperForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const selectedAuthors2 = [];
 
         const paper_title = document.querySelector('#title').value;
         const paper_abstract = document.querySelector('#abstract').value;
+        const selectedAuthors = addedAuthors.forEach(({ fname, lname }) => {
+              selectedAuthors2.push({ firstName, lastName });
+        });
 
-        const author_fname = document.querySelector("#first_name").value;
-        const author_lname = document.querySelector("#last_name").value;
-        const author_email = document.querySelector("#email").value;
-        const author_affiliation = document.querySelector("#affiliation").value;
+        const author_fname = document.querySelector("#presenters").value;
+        const authors = await confPlus.getAuthorsData();
+        const selectedAuthor = authors.find((author) => author.fname === author_fname)
 
+        try {
+          const response = await fetch(`http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`, {
+            method: 'GET'
+        });  
 
+            return presenter = await response.json();
 
-        const authorsSelect = document.querySelector('#add-author');
-
-        const presenterIndex = document.querySelector('#presenter').value;
+        } catch (err) {
+            console.error('An error occured during fetching institutions data.', err)
+        }
+        
         const attachedPdfs = document.querySelector('#paper_pdf').files;
 
-        await confPlus.submitPaper(paper_title, paper_abstract, presenterIndex, attachedPdfs);
-    });
+        await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs);
 
+        let redirectUrl = '';
+        redirectUrl = 'schedule-editor.html';
+            
+        window.location.replace(redirectUrl);
 
-
-    
-        const res = await fetch('http://localhost:3000/api/institutions', {
-            method: 'GET',
         });
-        const institutions = await res.json();
-        document.querySelector("#affiliation").innerHTML = institutions
-        .map((i) => `<option value ="${i.institution}"> ${i.institution}</option>`).join(" ")
-    });
 
-
-
-// const selectedAuthors = Array.from(authorsSelect.selectedOptions).map(option => confPlus.usersData.authors[option.value]);
-//selectedAuthors
+  }
+});

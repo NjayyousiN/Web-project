@@ -10,7 +10,8 @@
 
 
     <h1>Paper Submission</h1>
-    <form action="/submit" method="POST" enctype="multipart/form-data" id="submit-form">
+
+    <form  method="POST" enctype="multipart/form-data" id="submit-form">
         <label for="title">Paper Title:</label>
         <input type="text" id="title" name="title" required><br><br>
             <label for="abstract">Abstract:</label><br>
@@ -20,30 +21,28 @@
         <div class="author">
             <h3>Author 1</h3>
             <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="authors[][first_name]" required><br><br>
+            <input type="text" id="first_name" name="authors[][first_name]" ><br><br>
 
             <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="authors[][last_name]" required><br><br>
+            <input type="text" id="last_name" name="authors[][last_name]" ><br><br>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="authors[][email]" required><br><br>
+            <input type="email" id="email" name="authors[][email]" ><br><br>
 
             <label for="affiliation">Affiliation:</label>
-            <select id="affiliation" name="authors[][affiliation]" required>
+            <select id="affiliation" name="affiliation"></select><br><br>
+
                
-            </select><br><br>
 
             
-            <label for="presenter">Presenter:</label>
-            <select id="presenter" name="presenter" required>
-            <option value="1">Author 1</option>
+            <label for="presenters">Presenter:</label>
+            <select id="presenters" name="presenters" >
             </select><br><br>
         </div>
     </div>
 
     <label for="removeAuthor">Remove Author:</label>
     <select id="removeAuthor" name="removeAuthor" required>
-    <option value="1">Author 1</option>
     </select><br><br>
 
     <button type="button" id="add-author">Add Author</button>
