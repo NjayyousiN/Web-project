@@ -6,8 +6,8 @@ export async function createUpload(attachedPdf) {
     const data = await fs.readFile(path);
     const attachedPdfs = JSON.parse(data);
 
-    attachedPdf = {...attachedPdf,
-    };
+    attachedPdf = {filename: attachedPdf.name, mimetype: attachedPdf.type};
+    
     attachedPdfs.push(attachedPdf);
 
     await fs.writeFile(path, JSON.stringify(attachedPdfs));

@@ -126,17 +126,29 @@ class ConfPlus {
 async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs) {
   try {
     console.log('Attaching PDFs...');
+    const formData = new FormData(); 
+
+     for (let i = 0; i < attachedPdfs.length; i++) {
+        formData.append("attachedPdf", attachedPdfs[i]);
+    }
+    console.log(formData)
     const pdfUpload = await fetch('http://localhost:3000/api/upload', {
       method: 'POST',
-      body: attachedPdfs,
+      body: formData,
     });
 
     if (!pdfUpload.ok) {
       console.error('An Error occured while attaching the PDF ');
+    console.error("Server response:", await pdfUpload.json());
       return;
     }
-
     console.log('PDFs attached successfully. Uploading paper details...');
+
+    if (!attachedPdfs || attachedPdfs.length === 0) {
+    console.error("No PDFs attached");
+    return;
+    }
+    
     const pdfUrl = await pdfUpload.text();
 
     const paperDetails = {
@@ -166,38 +178,39 @@ async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attac
   }
 
     // Assign reviewers to papers
-    await this.assignReviewers(paperDetails.id);     
+    // await this.assignReviewers(paperDetails.id);     
 }
 
 //Assign 2 random reviewers to each paper
-    async assignReviewers(paperId) {
-        const reviewers_list = this.getUserData().reviewer;
-        const selectedReviewers = [];
+    // async assignReviewers(paperId) {
+    //     const reviewers_list = this.getUserData().reviewer;
+    //     const selectedReviewers = [];
 
-        while (selectedReviewers.length < 2) {
-        const rdmIndex = Math.floor(Math.random() * reviewers_list.length);
-        const reviewer = reviewers_list[rdmIndex];
+    //     while (selectedReviewers.length < 2) {
+    //     const rdmIndex = Math.floor(Math.random() * reviewers_list.length);
+    //     const reviewer = reviewers_list[rdmIndex];
 
-        if (!selectedReviewers.includes(reviewer)) {
-            selectedReviewers.push(reviewer);
-        }
-        }
+    //     if (!selectedReviewers.includes(reviewer)) {
+    //         selectedReviewers.push(reviewer);
+    //     }
+    //     }
 
-        const updateResponse = await fetch(`/api/papers/${paperId}/assign-reviewers`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ reviewers_list: selectedReviewers }),
-        });
+    //     //route still not made
+    //     const updateResponse = await fetch(`/api/papers/${paperId}/assign-reviewers`, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ reviewers_list: selectedReviewers }),
+    //     });
 
-        if (!updateResponse.ok) {
-        console.error('An Error occured while assigning reviewers');
-        return;
-        }
+    //     if (!updateResponse.ok) {
+    //     console.error('An Error occured while assigning reviewers');
+    //     return;
+    //     }
 
-        console.log('Reviewers assigned successfully');
-    } 
+    //     console.log('Reviewers assigned successfully');
+    // } 
 
 //Fill drop-down lists
     async populateDropList() {
@@ -267,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const addedAuthors = [];
     const loginForm = document.querySelector("#login-form");
-    const submitPaperForm = document.querySelector("#submit_paper");
+    const submitPaperForm = document.querySelector("#paperForm");
 
 //Validate that the form exists in the page before adding the event listener
     if (loginForm) {
@@ -392,39 +405,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Actions to be taken after clicking on "submit" button
         submitPaperForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const selectedAuthors2 = [];
+            e.preventDefault();
+            console.log("Attempting to submit form...");
+            const selectedAuthors2 = [];
+            let presenter;
+            const paper_title = document.querySelector("#title").value;
+            const paper_abstract = document.querySelector("#abstract").value;
+            const selectedAuthors = addedAuthors.map(({ fname, lname }) => {
+                return { firstName: fname, lastName: lname };
+            });
 
-        const paper_title = document.querySelector('#title').value;
-        const paper_abstract = document.querySelector('#abstract').value;
-        const selectedAuthors = addedAuthors.forEach(({ fname, lname }) => {
-              selectedAuthors2.push({ firstName, lastName });
-        });
+            const author_fname = document.querySelector("#presenters").value;
+            const authors = await confPlus.getAuthorsData();
+            const selectedAuthor = authors.find((author) => author.fname === author_fname);
 
-        const author_fname = document.querySelector("#presenters").value;
-        const authors = await confPlus.getAuthorsData();
-        const selectedAuthor = authors.find((author) => author.fname === author_fname)
+            try {
+                const response = await fetch(`http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`, {
+                method: "GET",
+                });
 
-        try {
-          const response = await fetch(`http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`, {
-            method: 'GET'
-        });  
+                presenter = await response.json();
+            } catch (err) {
+                console.error("An error occured during fetching institutions data.", err);
+            }
 
-            return presenter = await response.json();
+            const attachedPdfs = document.querySelector("#paper_pdf").files;
 
-        } catch (err) {
-            console.error('An error occured during fetching institutions data.', err)
-        }
-        
-        const attachedPdfs = document.querySelector('#paper_pdf').files;
+            await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs);
 
-        await confPlus.submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs);
-
-        // let redirectUrl = '';
-        // redirectUrl = 'schedule-editor.html';
-        // window.location.replace(redirectUrl);
-
-        });
-
-  }
+            // let redirectUrl = '';
+            // redirectUrl = 'schedule-editor.html';
+            // window.location.replace(redirectUrl);
+            });
+    }
 });

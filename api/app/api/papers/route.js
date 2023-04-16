@@ -14,7 +14,7 @@ export async function GET(request) {
         return Response({message: "Internal server error."}, { status: 500});
     }
 }
-    
+   
 export async function POST(request) {
     try {
         console.log("POST request received");

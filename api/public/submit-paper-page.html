@@ -11,7 +11,7 @@
 
     <h1>Paper Submission</h1>
 
-    <form  method="POST" enctype="multipart/form-data" id="submit-form">
+    <form id="paperForm">
         <label for="title">Paper Title:</label>
         <input type="text" id="title" name="title" required><br><br>
             <label for="abstract">Abstract:</label><br>
@@ -51,7 +51,7 @@
 
 
     <label for="paper_pdf">Upload Paper PDF:</label>
-    <input type="file" id="paper_pdf" name="paper_pdf" accept="application/pdf" required><br><br>
+    <input type="file" id="paper_pdf" name="paper_pdf" accept="application/pdf" multiple><br><br>
 
     <input type="submit" value="Submit Paper" id="submit_paper">
 </form>

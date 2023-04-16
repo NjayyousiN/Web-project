@@ -13,19 +13,39 @@ export async function GET(request) {
 }
     
 export async function POST(request) {
-    try {
-        console.log(`[INFO] POST request received for /upload: ${JSON.stringify(request.body)}`);
-        const body = await request.json();
-        if ("attachedPdf" in body) {
-            const attachedPdf = await uploadRepo.createUpload({attachedPdf: body.attachedPdf});
-            console.log(`[INFO] Successfully created upload: ${JSON.stringify(attachedPdf)}`);
-            return Response.json(attachedPdf, {status: 201 });        
-        } else {
-            console.log(`[INFO] Invalid parameters received for /upload POST request: ${JSON.stringify(body)}`);
-            return Response.json({message: "Invalid parameters"}, { status: 400});
-        }
-    }  catch (err) {
-        console.error(`[ERROR] Failed to create upload: ${err.message}`);
-        return new Response({message: "Internal server error."}, { status: 500});
+  try {
+    console.log(`[INFO] POST request received for /upload`);
+
+    if (!request.headers.get("Content-Type").startsWith("multipart/form-data")) {
+      return new Response(
+        JSON.stringify({ message: "Invalid request body" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
+
+    const formData = await request.formData();
+    const attachedPdfs = formData.getAll("attachedPdf");
+
+    if (attachedPdfs.length === 0) {
+      return new Response(
+        JSON.stringify({ message: "No PDFs attached" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const uploadResult = await uploadRepo.createUpload(attachedPdfs);
+
+    console.log(`[INFO] Successfully created upload: ${JSON.stringify(uploadResult)}`);
+
+    return new Response(
+      JSON.stringify(uploadResult),
+      { status: 201, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (err) {
+    console.error(`[ERROR] Failed to create upload: ${err.message}`);
+    return new Response(
+      JSON.stringify({ message: "Internal server error" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }
