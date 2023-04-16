@@ -1,17 +1,49 @@
 import * as uploadRepo from "./repository.js"
+import { Buffer } from "buffer";
 
+// export async function GET(request) {
+//     try {
+//         console.log(`[INFO] GET request received for /upload`);
+//         const attachedPdfs = await uploadRepo.readUpload();
+//         console.log(`[INFO] Successfully retrieved uploads: ${JSON.stringify(attachedPdfs)}`);
+//         return Response.json(attachedPdfs, {status: 200 });        
+//     }  catch (err) {
+//         console.error(`[ERROR] Failed to retrieve uploads: ${err.message}`);
+//         return Response({message: "Internal server error."}, { status: 500});
+//     }
+// }
 export async function GET(request) {
     try {
-        console.log(`[INFO] GET request received for /upload`);
-        const attachedPdfs = await uploadRepo.readUpload();
-        console.log(`[INFO] Successfully retrieved uploads: ${JSON.stringify(attachedPdfs)}`);
-        return Response.json(attachedPdfs, {status: 200 });        
-    }  catch (err) {
-        console.error(`[ERROR] Failed to retrieve uploads: ${err.message}`);
-        return Response({message: "Internal server error."}, { status: 500});
+      const url = new URL(request.url);
+      const filename = url.pathname.substring(1); // Remove the leading '/'
+
+      const pdfData = await uploadRepo.readUploadByFilename(filename);
+
+      if (!pdfData) {
+        return new Response(
+          JSON.stringify({ message: "PDF not found" }),
+          { status: 404, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      const pdfBuffer = Buffer.from(pdfData.base64Content, "base64");
+
+      return new Response(pdfBuffer, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": `attachment; filename=${pdfData.filename}`,
+        },
+      });
+    } catch (err) {
+      console.error(`[ERROR] Failed to serve PDF: ${err.message}`);
+      return new Response(
+        JSON.stringify({ message: "Internal server error" }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
     }
 }
-    
+
 export async function POST(request) {
   try {
     console.log(`[INFO] POST request received for /upload`);
@@ -24,7 +56,9 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
+
     const attachedPdfs = formData.getAll("attachedPdf");
+    const uploadResults = [];
 
     if (attachedPdfs.length === 0) {
       return new Response(
@@ -33,14 +67,27 @@ export async function POST(request) {
       );
     }
 
-    const uploadResult = await uploadRepo.createUpload(attachedPdfs);
+    for (const attachedPdf of attachedPdfs) {
+      // const uploadResult = await uploadRepo.createUpload(attachedPdf);
+      const buffer = await attachedPdf.arrayBuffer();
+      const base64Pdf = Buffer.from(buffer).toString("base64");
+      const uploadResult = await uploadRepo.createUpload({ ...attachedPdf, content: base64Pdf });
 
-    console.log(`[INFO] Successfully created upload: ${JSON.stringify(uploadResult)}`);
+      uploadResults.push({
+        filename: uploadResult.filename,
+        base64Content: base64Pdf
+    });
+    }
 
-    return new Response(
-      JSON.stringify(uploadResult),
-      { status: 201, headers: { "Content-Type": "application/json" } }
-    );
+    const firstUploadResult = uploadResults[0];
+
+    console.log(`[INFO] Successfully created upload.`);
+
+    return new Response(JSON.stringify({
+      url: firstUploadResult.filename,
+      base64Content: firstUploadResult.base64Content
+    }), { status: 201, headers: { "Content-Type": "application/json" } });
+
   } catch (err) {
     console.error(`[ERROR] Failed to create upload: ${err.message}`);
     return new Response(

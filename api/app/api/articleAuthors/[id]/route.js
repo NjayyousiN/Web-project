@@ -5,7 +5,7 @@ export async function GET(request, { params }) {
         const { id } = params;
         // return Response.json( {path: `/api/articleAuthors/${id}`, method: "GET"}, { status: 200 })
 
-        const authors = await authorsRepo.readAuthors();
+        const authors = await authorsRepo.readAuthor(id);
 
         return Response.json(authors, {status: 200 });        
     }  catch (err) {

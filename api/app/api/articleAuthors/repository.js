@@ -27,9 +27,14 @@ export async function readAuthors(type) {
     return authors;
 }
 
-// export async function readUser(id) {
-//     //
-// }
+export async function readAuthor(id) {
+    const data = await fs.readFile(path);
+    const authors = JSON.parse(data);
+
+    const author = authors.find((auth) => auth.id === id);
+
+    return author;
+}
 
 // export async function updateUser(user) {
 //     //

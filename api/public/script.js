@@ -122,7 +122,41 @@ class ConfPlus {
 
 /*                                       CASE 2 STARTS HERE                                       */
 
-//Submit the paper
+    pdfUrl(base64Pdf, filename) {
+        const binaryString = atob(base64Pdf);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+
+        for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        const pdfBlob = new Blob([bytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(pdfBlob);
+
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = filename;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+
+        // Cleanup the DOM
+        setTimeout(() => {
+            downloadLink.removeAttribute("download");
+            document.body.removeChild(downloadLink);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+}
+
+    createDownloadLink(blobUrl, filename) {
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename;
+        return link;
+    }
+
+//Submit the paper form
 async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attachedPdfs) {
   try {
     console.log('Attaching PDFs...');
@@ -149,14 +183,36 @@ async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attac
     return;
     }
     
-    const pdfUrl = await pdfUpload.text();
+    const pdfUrlJson = await pdfUpload.json();
+    console.log("Server response:", pdfUrlJson);
+    
+    const base64PdfContent = pdfUrlJson.base64Content
+
+    if (!base64PdfContent) {
+        console.error("Base64 PDF content is undefined");
+        return;
+        }
+    const filename = pdfUrlJson.filename;
+
+    const pdfUrlGenerated = this.pdfUrl(base64PdfContent, filename);
+    const downloadLink = this.createDownloadLink(pdfUrlGenerated, filename);
+    const downloadContainer = document.getElementById("download-container");
+     
+    if (downloadContainer) {
+    downloadContainer.appendChild(downloadLink);
+
+    } else {
+    console.error("The download container element is not found.");
+    }
+
+    console.log("PDF URL:", pdfUrlGenerated);
 
     const paperDetails = {
-      title: paper_title,
-      abstract: paper_abstract,
-      authors: selectedAuthors,
-      presenter: presenter,
-      pdfURL: pdfUrl,
+    title: paper_title,
+    abstract: paper_abstract,
+    authors: selectedAuthors,
+    presenter: presenter,
+    pdfURL: pdfUrlGenerated,
     };
 
     const savePaper = await fetch('http://localhost:3000/api/papers', {
@@ -246,27 +302,26 @@ async submitPaper(paper_title, paper_abstract, selectedAuthors, presenter, attac
 //         list.textContent = paper.title;
 //         list.dataset.paperID = paper.id;
 //         papersList.appendChild(list);
-// });
-
+//     });
 // }
    
 
 //case 3
-    showReviewForm(paper) {
-        const reviewForm = document.querySelector('#review-form');
+//     showReviewForm(paper) {
+//         const reviewForm = document.querySelector('#review-form');
         
-        const overallEvaluation = reviewForm.querySelector('#overall-evaluation');
-        const paperContribution = reviewForm.querySelector('#paper-contribution');
-        const paperStrengths = reviewForm.querySelector('#paper-strengths');
-        const paperWeaknesses = reviewForm.querySelector('#paper-weaknesses');
+//         const overallEvaluation = reviewForm.querySelector('#overall-evaluation');
+//         const paperContribution = reviewForm.querySelector('#paper-contribution');
+//         const paperStrengths = reviewForm.querySelector('#paper-strengths');
+//         const paperWeaknesses = reviewForm.querySelector('#paper-weaknesses');
 
-        overallEvaluation.value = paper.review ? paper.review.overallEvaluation : '';
-        paperContribution.value = paper.review ? paper.review.paperContribution : '';
-        paperStrengths.value = paper.review ? paper.review.paperStrengths : '';
-        paperWeaknesses.value = paper.review ? paper.review.paperWeaknesses : '';
+//         overallEvaluation.value = paper.review ? paper.review.overallEvaluation : '';
+//         paperContribution.value = paper.review ? paper.review.paperContribution : '';
+//         paperStrengths.value = paper.review ? paper.review.paperStrengths : '';
+//         paperWeaknesses.value = paper.review ? paper.review.paperWeaknesses : '';
 
-        reviewForm.style.display = 'block';
-}    
+//         reviewForm.style.display = 'block';
+// }    
 
 }
 
@@ -416,14 +471,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             const author_fname = document.querySelector("#presenters").value;
+            console.log("Author:", author_fname); 
             const authors = await confPlus.getAuthorsData();
             const selectedAuthor = authors.find((author) => author.fname === author_fname);
+            console.log("Presenter Author:", selectedAuthor.id);
 
             try {
                 const response = await fetch(`http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`, {
                 method: "GET",
                 });
-
                 presenter = await response.json();
             } catch (err) {
                 console.error("An error occured during fetching institutions data.", err);
