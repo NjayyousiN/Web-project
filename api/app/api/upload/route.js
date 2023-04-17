@@ -1,17 +1,6 @@
 import * as uploadRepo from "./repository.js"
 import { Buffer } from "buffer";
 
-// export async function GET(request) {
-//     try {
-//         console.log(`[INFO] GET request received for /upload`);
-//         const attachedPdfs = await uploadRepo.readUpload();
-//         console.log(`[INFO] Successfully retrieved uploads: ${JSON.stringify(attachedPdfs)}`);
-//         return Response.json(attachedPdfs, {status: 200 });        
-//     }  catch (err) {
-//         console.error(`[ERROR] Failed to retrieve uploads: ${err.message}`);
-//         return Response({message: "Internal server error."}, { status: 500});
-//     }
-// }
 export async function GET(request) {
     try {
       const url = new URL(request.url);
@@ -68,7 +57,6 @@ export async function POST(request) {
     }
 
     for (const attachedPdf of attachedPdfs) {
-      // const uploadResult = await uploadRepo.createUpload(attachedPdf);
       const buffer = await attachedPdf.arrayBuffer();
       const base64Pdf = Buffer.from(buffer).toString("base64");
       const uploadResult = await uploadRepo.createUpload({ ...attachedPdf, content: base64Pdf });
