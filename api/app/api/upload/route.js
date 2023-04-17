@@ -4,7 +4,7 @@ import { Buffer } from "buffer";
 export async function GET(request) {
     try {
       const url = new URL(request.url);
-      const filename = url.pathname.substring(1); // Remove the leading '/'
+      const filename = url.pathname.substring(1); // Removes the leading '/'
 
       const pdfData = await uploadRepo.readUploadByFilename(filename);
 
@@ -45,13 +45,12 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
-
     const attachedPdfs = formData.getAll("attachedPdf");
     const uploadResults = [];
 
     if (attachedPdfs.length === 0) {
       return new Response(
-        JSON.stringify({ message: "No PDFs attached" }),
+        JSON.stringify({ message: `[INFO] No PDFs attached` }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -77,10 +76,10 @@ export async function POST(request) {
     }), { status: 201, headers: { "Content-Type": "application/json" } });
 
   } catch (err) {
-    console.error(`[ERROR] Failed to create upload: ${err.message}`);
-    return new Response(
-      JSON.stringify({ message: "Internal server error" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+      console.error(`[ERROR] Failed to create upload: ${err.message}`);
+      return new Response(
+        JSON.stringify({ message: `[ERROR ]Internal server error` }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
   }
 }
