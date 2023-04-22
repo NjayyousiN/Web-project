@@ -28,3 +28,21 @@ export async function POST(request) {
 		return new Response({message: ` [ERROR] Internal server error.`}, { status: 500});
 	}
 }
+
+export async function PUT(request) {
+	try {
+	  console.log(`[INFO] PUT request received`);
+	  const body = await request.json();
+	  console.log(`[INFO] Request body:`, body);
+  
+	  const { paperId, review } = body;
+	  const updatedPaper = await papersRepo.updatePaperReview(paperId, review);
+	  console.log(`[INFO] Paper updated with id: ${updatedPaper.id}`);
+  
+	  return new Response(JSON.stringify(updatedPaper), { status: 200 }); 
+	} catch (err) {
+	  console.error(`[ERROR] Error processing PUT request: ${err.message}`);
+	  return new Response(JSON.stringify({ message: ` [ERROR] Internal server error.` }), { status: 500 }); 
+	}
+  }
+  
