@@ -255,18 +255,19 @@ class ConfPlus {
 		assignedPapers.forEach((paper) => {
 			assignedPapersContainer.innerHTML += `
 			<input type="hidden" id="paper-id" value="${paper.id}">
-				<div class="paper">
+			  <div class="paper">
 				<h4>Title: ${paper.title}</h4>
 				<p>Authors: ${paper.authors.map(author => `${author.firstName} ${author.lastName}`).join(", ")}</p>
 				<div class="abstract">
-					<h4>Abstract: </h4>
-					<p>${paper.abstract}</p>
+				  <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
+				  <p class="abstract-content">${paper.abstract}</p>
 				</div>
 				<p>Article link: <a href="${paper.pdfURL}" download>${paper.title}</a></p>
 				<button class="select" data-paper-id="${paper.id}">Select</button>
-				</div>
+			  </div>
 			`;
-			});
+		  });
+		  
 
 			// Event listener for the "select" button
 			document.querySelectorAll(".select").forEach((button) =>
@@ -279,6 +280,7 @@ class ConfPlus {
 			console.error(`[ERROR] An error occurred during fetching the papers data. ${err}`);
 		}
 	}
+	
 	async loadReviewForm(paperId, reviewerId) {
 
 		const response = await fetch(`http://localhost:3000/api/papers/${paperId}`, {
@@ -286,7 +288,9 @@ class ConfPlus {
 		});
 		
 		const paper = await response.json();
-		const review = paper.reviews.find((r) => r.reviewerId === reviewerId);
+		// Check if the paper already has a review or not
+		const reviews = paper.reviews ? paper.reviews : [];
+		const review = reviews.find((r) => r.reviewerId === reviewerId);
 		
 		if (review) {
 			document.querySelector(`input[name="overall-evaluation"][value="${review.evaluation}"]`).checked = true;
@@ -323,6 +327,7 @@ confPlus.init();
 		const reviewForm = document.getElementById("review-form");
 		let reviewerId;
 
+		// Fetching assigned papers
 		reviewerId = localStorage.getItem("reviewerId");
 		if (reviewerId) {
 			confPlus.fetchAssignedPapers(reviewerId);
@@ -546,16 +551,21 @@ confPlus.init();
 				alert("Error submitting review.");
 			}
 		});
-
-		// Event lisener for "select" and loading form
+		
+		// Event lisener for "select" and loading form. Also handles collapsation of abstract
 		document.querySelector("#assigned-papers").addEventListener("click", (event) => {
-		if (event.target.classList.contains("select")) {
-			const paperId = event.target.dataset.paperId;
-			const reviewerId = localStorage.getItem("reviewerId");
-			confPlus.loadReviewForm(paperId, reviewerId);
-		}
+			if (event.target.classList.contains("select")) {
+			  const paperId = event.target.dataset.paperId;
+			  const reviewerId = localStorage.getItem("reviewerId");
+			  confPlus.loadReviewForm(paperId, reviewerId);
+			} else if (event.target.classList.contains("abstract-header") || event.target.classList.contains("collapse-icon")) {
+			  const header = event.target.closest(".abstract-header");
+			  const abstractContainer = header.parentElement;
+			  abstractContainer.classList.toggle("collapsed");
+			  const icon = header.querySelector(".collapse-icon");
+			  icon.textContent = icon.textContent === "+" ? "-" : "+";
+			}
 		});
-		
-		
+		  
 
 	});

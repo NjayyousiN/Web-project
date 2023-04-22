@@ -26,6 +26,20 @@
         .paper-card a:hover {
           text-decoration: underline;
         }
+
+        .abstract-header {
+          cursor: pointer;
+        }
+
+        .abstract-content {
+          display: none;
+          transition: max-height 0.3s ease;
+        }
+
+        .collapsed .abstract-content {
+          display: block;
+        }
+
       </style>
       
 </head>
