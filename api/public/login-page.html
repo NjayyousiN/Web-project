@@ -6,49 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login page</title>
-    <!-- <link rel="stylesheet" href="/styles/style.css" /> -->
-
+    <link rel="stylesheet" href="/styles/loginStyle.css">
+    <link rel="stylesheet" href="/styles/universalStyles.css">
 </head>
-
-
-<body>
-    <header>
-        <!-- <h1>ConfPlus</h1> -->
+<body id="page">
+    <header id="header" class="header">
+        <nav id="navigation-bar" class="navigation-bar">
+            <a href="#">Home</a>
+        </nav>
     </header>
-    <!-- <div class="logincontainer" id="main-content">
-        <form action="login" id="login-form">
-            <h2>Sign in</h2>
-            <div>
-                <label for="Email">Email </label>
-                <input class="login-btn" id="Email" type="email" required />
+    <main id="main-content" class="main-content">
+        <h1>ConfPlus</h1>
+        <h2>Sign in</h2>
+        <form id="login-form" class="login-form">
+            <div class="email-input form-group">
+                <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
-            <div>
-                <label for="password">Password</label>
-                <input class="login-btn" type="password" id="password" name="password" required>
-            </div>
-            <input class="btn" type="submit" value="Cancel">
-            <input class="btn-login" type="submit" value="Login">
-        </form>
-    </div> -->
-
-    <div id="main-content">
-    <div class="container">
-        <h2>Login</h2>
-        <form id="login-form">
-            <div class="form-group">
-                <label for="Email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+            <div class="password-input form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <button type="submit" id="btn-login">Login</button>
         </form>
-    </div>
-
-</div>
+    </main>
+    <footer id="footer" class="footer">
+        <div id="footer-links" class="footer-links">
+            <a href="#">Contact Us</a>
+            <a href="#">About Us</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
     <script src="script.js" type="module"></script>
 </body>
 
 </html>
+
+<!-- <div class="logincontainer" id="main-content">
+    <form action="login" id="login-form">
+        <h2>Sign in</h2>
+        <div>
+            <label for="Email">Email </label>
+            <input class="login-btn" id="Email" type="email" required />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input class="login-btn" type="password" id="password" name="password" required>
+        </div>
+        <input class="btn" type="submit" value="Cancel">
+        <input class="btn-login" type="submit" value="Login">
+    </form>
+</div> -->

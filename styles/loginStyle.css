@@ -1,0 +1,105 @@
+/* defining grid areas */
+#page {
+    background-color: #FFA384;
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer"
+}
+/* header styles */
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 15px;   
+}
+
+.main-content {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+/* anchor tags */
+a {
+    text-decoration: none;
+    color: #FEFDFE;
+}
+
+a:hover {
+    color: black;
+}
+
+/* main-content */
+.main-content {
+    padding: 100px 10px 300px;
+    background-color: #FEFDFE;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    box-shadow: #CA2B4B 0px 0px 0px 2px, #CA2B4B 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;    
+}
+
+.main-content > h1, .main-content > h2 {
+    color: #CA2B4B;
+}
+/* login form styles */
+.login-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    
+}
+/* input fields */
+.form-group > input {
+    min-height: 30px;
+    min-width: 220px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #FFA384;
+    padding: 5px 7px;
+}
+
+input[type="email"]::placeholder {
+    padding-left: 85px;
+}
+
+input[type="password"]::placeholder {
+    padding-left: 71px;
+}
+/* inner input text */
+::placeholder {
+    color: #FFA384;
+    font-size: 0.9rem;
+
+}
+
+/* login button */
+.login-form > button {
+    color: white;
+    margin-top: 7px;
+    padding: 7px 95px;
+    border-radius: 10px;
+    border-style: none;
+    background-color: #CA2B4B;
+}
+
+.login-form > button:hover {
+    background-color: #FFA384;
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateY(-2px);
+}
+/* footer */
+.footer-links {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 15px;
+}
+
+
