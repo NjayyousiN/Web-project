@@ -125,13 +125,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // evvent listener for back button
 
-  document.querySelector(".back-button").addEventListener("click", (e) => {
+  document.querySelector(".back-btn").addEventListener("click", (e) => {
     e.preventDefault();
 
     // navigate to the panel page
-    alert("back to panel page");
+    alert("Heading to the panel page");
+
     // ADD THE URL OF THE PANEL PAGE
-    alert("back to conference schedule page");
     window.location.href = "schedule-viewer.html";
   });
 });
