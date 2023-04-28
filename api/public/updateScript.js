@@ -106,5 +106,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.querySelector(".back-btn").addEventListener("click", (e) => {
   e.preventDefault();
+  alert("back to  conference schedule page");
   window.location.href = "schedule-editor.html";
 });

@@ -133,5 +133,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 // add event listener to back btn
 document.querySelector(".back-btn").addEventListener("click", (e) => {
   e.preventDefault();
+  alert("back to the conference schedule editor");
   window.location.href = "schedule-editor.html";
 });
