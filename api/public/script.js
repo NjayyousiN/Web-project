@@ -276,8 +276,10 @@ class ConfPlus {
       console.log("[INFO] Server response:", response);
       const papers = await response.json();
 
-      const assignedPapers = papers.filter((paper) =>
-        paper.reviewers.some((reviewer) => reviewer.id === reviewerId)
+      const assignedPapers = papers.filter(
+        (paper) =>
+          paper.reviewers &&
+          paper.reviewers.some((reviewer) => reviewer.id === reviewerId)
       );
 
       console.log(`[INFO] Assigned Papers: ${JSON.stringify(assignedPapers)}`);
@@ -286,26 +288,26 @@ class ConfPlus {
         document.querySelector("#assigned-papers");
       assignedPapersContainer.innerHTML = "";
 
-      //String literal below needs to be changed to the figma design***
       assignedPapers.forEach((paper) => {
         assignedPapersContainer.innerHTML += `
-			<input type="hidden" id="paper-id" value="${paper.id}">
-			  <div class="paper">
-				<h4>Title: ${paper.title}</h4>
-				<p>Authors: ${paper.authors
+      <input type="hidden" id="paper-id" value="${paper.id}">
+        <div class="paper">
+        <h4>Title: ${paper.title}</h4>
+        <p>Authors: ${paper.authors
           .map((author) => `${author.firstName} ${author.lastName}`)
           .join(", ")}</p>
-				<div class="abstract">
-				  <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
-				  <p class="abstract-content">${paper.abstract}</p>
-				</div>
-				<p>Article link: <a href="${paper.pdfURL}" download>${paper.title}</a></p>
-				<button class="select" data-paper-id="${paper.id}">Select</button>
-			  </div>
-			`;
+        <div class="abstract">
+          <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
+          <p class="abstract-content">${paper.abstract}</p>
+        </div>
+        <p>Article link: <a href="${paper.pdfURL}" download>${
+          paper.title
+        }</a></p>
+        <button class="select" data-paper-id="${paper.id}">Select</button>
+        </div>
+      `;
       });
 
-      // Event listener for the "select" button
       document.querySelectorAll(".select").forEach((button) =>
         button.addEventListener("click", () => {
           const paperId = button.dataset.paperId;
@@ -356,17 +358,9 @@ class ConfPlus {
     document.querySelector("#paper-id").value = paper.id;
   }
 
-  /*                                       CASE 4 STARTS HERE                                       */
-  // Fetching all loctions
-  async populateDropdown(dropdown, endpoint, property) {
-    const res = await fetch(`http://localhost:3000/api/${endpoint}`);
-    const data = await res.json();
-    dropdown.innerHTML = data
-      .map((item) => {
-        return `<option value="${item[property]}">${item[property]}</option>`;
-      })
-      .join("");
-  }
+  /*         *****************************            CASE 4 STARTS HERE                  *********************************                     */
+
+  // retrive schedules from the server
 }
 
 //Instantiation of ConfPlus Class
@@ -383,6 +377,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const submitPaperForm = document.querySelector("#paperForm");
   const assignedPapersDiv = document.querySelector("#assigned-papers");
   const reviewForm = document.getElementById("review-form");
+  const scheduleFormPage = document.querySelector(".sessions-container");
+
   let reviewerId;
 
   // Fetching assigned papers
@@ -601,119 +597,83 @@ document.addEventListener("DOMContentLoaded", async () => {
       await confPlus.fetchAssignedPapers(parseInt(storedReviewerId, 10));
     }
   }
-  // ************************************* case 4 START  *************************************/
-
-  // ************************************* ADD PAGE  *************************************/
-  // populate the dropdown list of locations
-
-  const locationDropdown = document.querySelector("#location-dropdown");
-  confPlus.populateDropdown(locationDropdown, "location", "location");
-
-  // call the function to populate the date dropdown
-  const dateDropdown = document.querySelector("#date-dropdown");
-  confPlus.populateDropdown(dateDropdown, "date", "date");
-
-  // call the function to populate the paper dropdown
-  const paperDropdown = document.querySelector("#paper-dropdown");
-  confPlus.populateDropdown(paperDropdown, "papers", "title");
-
-  // event listener for submit btn
-  const addForm = document.querySelector("#add-session-form");
-
-  addForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    // get the values from the dropdowns
-    const location = locationDropdown.value;
-    const date = dateDropdown.value;
-    const paper_title = paperDropdown.value;
-
-    // checking the values
-    console.log(location, date, paper_title);
-
-    // post the values to the database
-    const res = await fetch("http://localhost:3000/api/conferenceSchedule", {
-      method: "POST",
-      body: JSON.stringify({
-        title: paper_title,
-        location: location,
-        date: date,
-      }),
-    });
-
-    const data = await res.json();
-
-    console.log(data);
-
-    alert(data.response);
-  });
-
-  /// ************************************* UPDATE PAGE  *************************************/
-
-  // ************************************* case 4 END   *************************************/
 
   //    //         ERRORRRRR HERE       //                                          //
   // Event listener for submitting the review
-  // reviewForm.addEventListener("submit", async (e) => {
-  //   e.preventDefault();
-  //   const storedReviewerId2 = localStorage.getItem("reviewerId");
 
-  //   const overallEvaluationInput = document.querySelector(
-  //     'input[name="overall-evaluation"]:checked'
-  //   );
-  //   const overallEvaluation = overallEvaluationInput
-  //     ? parseInt(overallEvaluationInput.value)
-  //     : null;
-  //   const paperContribution = parseInt(
-  //     document.querySelector('input[name="paper-contribution"]:checked').value
-  //   );
-  //   const paperStrengths = document.getElementById("paper-strengths").value;
-  //   const paperWeaknesses = document.getElementById("paper-weaknesses").value;
+  if (reviewForm) {
+    reviewForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const storedReviewerId2 = localStorage.getItem("reviewerId");
 
-  //   const paperId = document.getElementById("paper-id").value; // Add this line to get the paper ID from the hidden input field
+      const overallEvaluationInput = document.querySelector(
+        'input[name="overall-evaluation"]:checked'
+      );
+      const overallEvaluation = overallEvaluationInput
+        ? parseInt(overallEvaluationInput.value)
+        : null;
+      const paperContribution = parseInt(
+        document.querySelector('input[name="paper-contribution"]:checked').value
+      );
+      const paperStrengths = document.getElementById("paper-strengths").value;
+      const paperWeaknesses = document.getElementById("paper-weaknesses").value;
 
-  //   const review = {
-  //     reviewerId: storedReviewerId2,
-  //     evaluation: overallEvaluation,
-  //     contribution: paperContribution,
-  //     strengths: paperStrengths,
-  //     weaknesses: paperWeaknesses,
-  //   };
+      const paperId = document.getElementById("paper-id").value; // Add this line to get the paper ID from the hidden input field
 
-  //   try {
-  //     const updatedPaper = await fetch("http://localhost:3000/api/papers", {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ paperId, review }), // Include the paperId property in the request body
-  //     });
+      const review = {
+        reviewerId: storedReviewerId2,
+        evaluation: overallEvaluation,
+        contribution: paperContribution,
+        strengths: paperStrengths,
+        weaknesses: paperWeaknesses,
+      };
 
-  //     alert("Review submitted successfully!");
-  //     console.log(updatedPaper);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Error submitting review.");
-  //   }
-  // });
+      try {
+        const updatedPaper = await fetch("http://localhost:3000/api/papers", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ paperId, review }), // Include the paperId property in the request body
+        });
+
+        alert("Review submitted successfully!");
+        console.log(updatedPaper);
+      } catch (error) {
+        console.error(error);
+        alert("Error submitting review.");
+      }
+    });
+  }
   //                                       ERRORRRRR HERE       //                                          //
 
   // Event lisener for "select" and loading form. Also handles collapsation of abstract
-  // document
-  //   .querySelector("#assigned-papers")
-  //   .addEventListener("click", (event) => {
-  //     if (event.target.classList.contains("select")) {
-  //       const paperId = event.target.dataset.paperId;
-  //       const reviewerId = localStorage.getItem("reviewerId");
-  //       confPlus.loadReviewForm(paperId, reviewerId);
-  //     } else if (
-  //       event.target.classList.contains("abstract-header") ||
-  //       event.target.classList.contains("collapse-icon")
-  //     ) {
-  //       const header = event.target.closest(".abstract-header");
-  //       const abstractContainer = header.parentElement;
-  //       abstractContainer.classList.toggle("collapsed");
-  //       const icon = header.querySelector(".collapse-icon");
-  //       icon.textContent = icon.textContent === "+" ? "-" : "+";
-  //     }
-  //   });
+  const assigned_papers = document.querySelector("#assigned-papers");
+  if (assigned_papers) {
+    assigned_papers.addEventListener("click", (event) => {
+      if (event.target.classList.contains("select")) {
+        const paperId = event.target.dataset.paperId;
+        const reviewerId = localStorage.getItem("reviewerId");
+        confPlus.loadReviewForm(paperId, reviewerId);
+      } else if (
+        event.target.classList.contains("abstract-header") ||
+        event.target.classList.contains("collapse-icon")
+      ) {
+        const header = event.target.closest(".abstract-header");
+        const abstractContainer = header.parentElement;
+        abstractContainer.classList.toggle("collapsed");
+        const icon = header.querySelector(".collapse-icon");
+        icon.textContent = icon.textContent === "+" ? "-" : "+";
+      }
+    });
+  }
+
+  // ************************************* case 4 START  *************************************/
+
+  // ************************************* ADD PAGE  *************************************/
+
+  /// ************************************* UPDATE PAGE  *************************************/
+  // done in the update page.js file
+
+  // ************************************* case 4 END   *************************************/
 });

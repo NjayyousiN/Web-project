@@ -1,17 +1,1 @@
-[
-  {
-    "title": "paper_title113",
-    "date": "13/06/2023",
-    "location": "QU Library B13-201"
-  },
-  {
-    "title": "testingcase3",
-    "date": " 12/06/2023",
-    "location": "Female Engineering Building C07-145"
-  },
-  {
-    "title": "test1234",
-    "date": "13/06/2023",
-    "location": "QU Library B13-201"
-  }
-]
+[{"title":"testing_case3","date":" 12/06/2023","location":"Female Engineering Building C07-145"}]

@@ -5,25 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Schedule</title>
-    <script src="script.js" type="module"></script>
+    <script src="addpageScript.js" type="module"></script>
   </head>
   <body>
-    <section>
-      <label for="paper-dropdown">Select paper:</label>
-      <select id="paper-dropdown"></select>
-
-      <label for="location-dropdown">Select location:</label>
-      <select id="location-dropdown"></select>
-
-      <label for="data-dropdown">Select date:</label>
-      <select id="date-dropdown"></select>
-
+    <section id="main-content">
       <form id="add-session-form">
+        <label for="paper-dropdown">Select paper:</label>
+        <select id="paper-dropdown"></select>
+
+        <label for="location-dropdown">Select location:</label>
+        <select id="location-dropdown"></select>
+
+        <label for="data-dropdown">Select date:</label>
+        <select id="date-dropdown"></select>
+
         <button type="submit">Add</button>
         <button type="reset">clear</button>
       </form>
 
-      <button id="back-btn">Back</button>
+      <button
+        class="back-btn"
+        onclick="window.location.href='schedule-editor.html'"
+      >
+        Back
+      </button>
     </section>
   </body>
 </html>

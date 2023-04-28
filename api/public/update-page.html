@@ -9,21 +9,26 @@
   </head>
   <body>
     <section>
-      <label for="paper-dropdown-update">Select paper:</label>
-      <select class="paper-dropdown-update"></select>
-
-      <label for="updated-location-dropdown">Select location:</label>
-      <select class="updated-location-dropdown"></select>
-
-      <label for="date-dropdown-update">Select date:</label>
-      <select class="date-dropdown-update"></select>
-
       <form class="update-session-form">
+        <label for="paper-dropdown-update">Select paper:</label>
+        <select class="paper-dropdown-update"></select>
+
+        <label for="updated-location-dropdown">Select location:</label>
+        <select class="updated-location-dropdown"></select>
+
+        <label for="date-dropdown-update">Select date:</label>
+        <select class="date-dropdown-update"></select>
+
         <button type="submit">Update</button>
         <button type="reset">clear</button>
       </form>
 
-      <button class="back-btn">Back</button>
+      <button
+        class="back-btn"
+        onclick="window.location.href='schedule-editor.html'"
+      >
+        Back
+      </button>
     </section>
   </body>
 </html>
