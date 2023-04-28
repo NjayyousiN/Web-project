@@ -10,25 +10,31 @@
   <body>
     <section id="main-content">
       <form id="add-session-form">
+        <!-- papers with 2 overall evualtion  -->
+
         <label for="paper-dropdown">Select paper:</label>
-        <select id="paper-dropdown"></select>
+        <select id="paper-dropdown" required></select>
+
+        <!-- authours for this papaer -->
+        <label for="presenter-dropdown">Select presenter:</label>
+        <select id="presenter-dropdown" required></select>
 
         <label for="location-dropdown">Select location:</label>
-        <select id="location-dropdown"></select>
+        <select id="location-dropdown" required></select>
 
         <label for="data-dropdown">Select date:</label>
-        <select id="date-dropdown"></select>
+        <select id="date-dropdown" required></select>
+
+        <label for="fromTime">From:</label>
+        <input type="time" id="fromTime" name="fromTime" required />
+        <label for="toTime">To:</label>
+        <input type="time" id="toTime" name="toTime" required />
 
         <button type="submit">Add</button>
         <button type="reset">clear</button>
       </form>
 
-      <button
-        class="back-btn"
-        onclick="window.location.href='schedule-editor.html'"
-      >
-        Back
-      </button>
+      <button class="back-btn">Back</button>
     </section>
   </body>
 </html>

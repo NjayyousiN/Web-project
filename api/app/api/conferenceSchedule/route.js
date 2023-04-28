@@ -24,7 +24,6 @@ export async function POST(request, { params }) {
   // Creates a new collection. The name of the collection is part of the request body
   try {
     const body = await request.json();
-
     const schedule = await repo.createSchedule(body);
     if (schedule === false) {
       return Response.json(

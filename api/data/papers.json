@@ -24,7 +24,7 @@
     "reviews": [
       {
         "reviewerId": "10",
-        "evaluation": 1,
+        "evaluation": 2,
         "contribution": 3,
         "strengths": "testing2",
         "weaknesses": "testing22"
@@ -53,7 +53,7 @@
     "reviews": [
       {
         "reviewerId": "10",
-        "evaluation": -1,
+        "evaluation": 2,
         "contribution": 1,
         "strengths": "works?",
         "weaknesses": "finally works"

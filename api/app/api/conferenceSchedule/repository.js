@@ -28,6 +28,8 @@ export async function createSchedule(body) {
     date: body.date,
     location: body.location,
     presenter: body.presenter,
+    FromTime: body.FromTime,
+    ToTime: body.ToTime,
   };
   //add the new session to the array of sessions
   sessions.push(newSession);
@@ -59,10 +61,10 @@ export async function updateSchedule(title, body) {
   // check if the session exists
   if (index !== -1) {
     // update the session
-    sessions[index].title = body.title;
     sessions[index].date = body.date;
     sessions[index].location = body.location;
-    sessions[index].presenter = body.presenter;
+    sessions[index].FromTime = body.FromTime;
+    sessions[index].ToTime = body.ToTime;
     await fs.writeFile(schedulePath, JSON.stringify(sessions));
     return sessions[index];
   } else {

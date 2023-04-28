@@ -6,29 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Schedule</title>
     <script src="updateScript.js" type="module"></script>
+    <script src="schedule-editorScript.js" type="module"></script>
   </head>
   <body>
+    <!--                ALL HERE CLASS NOT ID         -->
     <section>
       <form class="update-session-form">
+        <!--  paper in the session only  -->
         <label for="paper-dropdown-update">Select paper:</label>
-        <select class="paper-dropdown-update"></select>
+        <select class="paper-dropdown-update" required></select>
+
+        <!-- authours for this papaer -->
+        <label for="presenter-dropdown-update">Select presenter:</label>
+        <select class="presenter-dropdown-update" required></select>
 
         <label for="updated-location-dropdown">Select location:</label>
-        <select class="updated-location-dropdown"></select>
+        <select class="updated-location-dropdown" required></select>
 
         <label for="date-dropdown-update">Select date:</label>
-        <select class="date-dropdown-update"></select>
+        <select class="date-dropdown-update" required></select>
+
+        <label for="fromTime">From:</label>
+        <input type="time" class="fromTime" name="fromTime" required />
+        <label for="toTime">To:</label>
+        <input type="time" class="toTime" name="toTime" required />
 
         <button type="submit">Update</button>
         <button type="reset">clear</button>
       </form>
 
-      <button
-        class="back-btn"
-        onclick="window.location.href='schedule-editor.html'"
-      >
-        Back
-      </button>
+      <button class="back-btn">Back</button>
     </section>
   </body>
 </html>
