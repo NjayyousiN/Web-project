@@ -5,36 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Schedule</title>
-    <script src="updateScript.js" type="module"></script>
+    <link rel="stylesheet" href="./styles/universalStyles.css">
+    <link rel="stylesheet" href="./styles/updateSession.css">
   </head>
   <body>
-    <!--                ALL HERE CLASS NOT ID         -->
-    <section>
-      <form class="update-session-form">
-        <!--  paper in the session only  -->
-        <label for="paper-dropdown-update">Select paper:</label>
-        <select class="paper-dropdown-update" required></select>
-
-        <!-- authours for this papaer -->
-        <label for="presenter-dropdown-update">Select presenter:</label>
-        <select class="presenter-dropdown-update" required></select>
-
-        <label for="updated-location-dropdown">Select location:</label>
-        <select class="updated-location-dropdown" required></select>
-
-        <label for="date-dropdown-update">Select date:</label>
-        <select class="date-dropdown-update" required></select>
-
-        <label for="fromTime">From:</label>
-        <input type="time" class="fromTime" name="fromTime" required />
-        <label for="toTime">To:</label>
-        <input type="time" class="toTime" name="toTime" required />
-
-        <button type="submit">Update</button>
-        <button type="reset">clear</button>
-      </form>
-
-      <button class="back-btn">Back</button>
-    </section>
+    <div id="page">
+      <div id="row1-col1" class="row1-col1"></div>
+      <div id="row2-col1" class="row2-col1"></div>
+      <div id="row2-col3" class="row2-col3"></div>
+      <header id="header" class="header">
+        <h1>ConfPlus</h1>
+      </header>
+      <nav id="navigation-bar" class="navigation-bar">
+        <a href="#">Home</a>
+        <a href="#">Log out</a>
+      </nav>
+      <main id="main-content" class="main-content">
+        <h2>Update Session</h2>
+        <form class="update-session-form">
+          <!--  paper in the session only  -->
+          <div id="choose-paper" class="choose-paper">
+            <label for="paper-dropdown-update">Select paper:</label>
+            <select class="paper-dropdown-update" required></select>
+          </div>
+          <!-- authours for this papaer -->
+          <div id="choose-presenter" class="choose-presenter">
+            <label for="presenter-dropdown-update">Select presenter:</label>
+            <select class="presenter-dropdown-update" required></select>
+          </div>
+          <div id="choose-location" class="choose-location">
+            <label for="updated-location-dropdown">Select location:</label>
+            <select class="updated-location-dropdown" required></select>
+          </div>
+          <div id="choose-date" class="choose-date">
+            <label for="date-dropdown-update">Select date:</label>
+            <select class="date-dropdown-update" required></select>
+          </div>
+          <div id="choose-from-time" class="choose-from-time">
+            <label for="fromTime">From:</label>
+            <input type="time" id="fromTime" name="fromTime" required />
+          </div>
+          <div id="choose-to-time" class="choose-to-time">
+            <label for="toTime">To:</label>
+            <input type="time" class="toTime" name="toTime" required />
+          </div>
+          <div id="edit-btns" class="edit-btns">
+            <button type="submit">Update</button>
+            <button type="reset">clear</button>
+          </div>
+        </form>
+      </main>  
+      <footer id="footer" class="footer">
+        <a href="#">Contact Us</a>
+        <a href="#">About Us</a>
+        <a href="#">Help</a>
+      </footer>
+    </div>
+    <script src="updateScript.js" type="module"></script>
   </body>
 </html>

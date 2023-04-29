@@ -125,6 +125,7 @@ a {
     display: flex;
     justify-content: space-evenly;
     background-image: linear-gradient(to top, #093545, #20DF7F);
+    margin-top: 2px;
 }
 
 .footer > a {
