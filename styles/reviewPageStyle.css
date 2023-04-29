@@ -1,8 +1,8 @@
 #page {
     display: grid;
     width: 100vw;
-    height: 100vh;
-    grid-template-columns: 1fr 1fr 1fr;
+    height: fit-content;
+    grid-template-columns: 1fr 1fr 1.5fr;
     grid-template-rows: 100px 1fr 150px;
     background-color: #093545;
 }
@@ -11,7 +11,7 @@
 .header {
     grid-column: 2 / 3;
     text-align: center;
-    height: 50%;
+    height: 65%;
     margin: auto 0;
 }
 
@@ -34,6 +34,7 @@
 
 /* Card selection view */
 #cards-display {
+    background-color: #224957;
     grid-column: 1 / 3;
 }
 
@@ -43,60 +44,130 @@
     padding: 16px;
     margin-bottom: 16px;
     width: 75%;
-    background-color: #224957;
-  }  
+    background-color: #093545;
+}  
 
-  .paper-card p {
-    margin-bottom: 8px;
-  }
+.paper-card p {
+margin-bottom: 8px;
+}
 
-  .paper-card > :nth-child(2) {
-    width: 55ch;
-    height: 9ch;
-  }
+.paper-card > :nth-child(2) {
+width: 55ch;
+height: 9ch;
+}
 
-  .title > h2 { 
-    font-weight: 100;
-  }
+.title > h2 { 
+font-weight: 100;
+}
 
-  /* the group of cards in display */
-  .assigned-papers {
-    padding: 45px 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* the group of cards in display */
+.assigned-papers {
+padding: 45px 0px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
 
-  /* select button at the bottom of the card */
-  .select-button {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0px 5px;
-  }
+/* select button at the bottom of the card */
+.select-button {
+display: flex;
+justify-content: flex-end;
+padding: 0px 5px;
+}
 
-  .select-button > button {
-    background-color: #224957;
-    font-size: 2.5rem;
-    border-style: none;
-    color: white;
-    font-family: DM Sans;
-    
-  }
+.select-button > button {
+background-color: #093545;
+font-size: 2.5rem;
+border-style: none;
+color: white;
+font-family: DM Sans;
 
-  .select-button > button:hover {
+}
+
+.select-button > button:hover {
     cursor: pointer;
     transition: transform 0.5s;
     transform: translateY(-2px);
-  }
+}
 
-  .form {
+/* review form */
+.form {
+    background-color: #224957;
     grid-column: 3 / 4;
-    padding: 84px 0px;
+    padding: 84px 25px;
+}
+
+.review-form > h2 {
+    font-weight: 100;
+}
+/* overall evaluation  */
+#overall-evaluation {
+    border-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+}
+
+/* paper-contribution */
+#paper-contribution {
+    border-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+}
+
+label , legend {
+    color: white;
+    font-family: DM Sans; 
+}
+
+input {
+    margin-right: 8px;
+}
+
+/* paper strengths textarea */
+.paper-strengths-section {
+    width: fit-content;
+}
+
+.paper-strengths-section > textarea {
+    width: 50ch;
+    height: 15ch;
+    border-radius: 10px;
+}
+
+/* paper weaknesses textarea */
+.paper-weaknesses-section {
+    display: flex;
+    width: fit-content;
+    align-items: flex-end;
+}
+
+.paper-weaknesses-section > textarea {
+    width: 50ch;
+    height: 15ch;
+    border-radius: 10px;
+}
+/* submit button */
+.submit-button > button {
+    color: white;
+    margin: 0px 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    border-style: none;
+    background-color: #20DF7F;
+
+}
+
+.submit-button > button:hover {
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateY(-2px);
 }
 
 /* footer */
 .footer {
-    padding: 30px 0px;
+    padding: 60px 0px;
     grid-column: 1 / 4;
     grid-row: 3;
     display: flex;

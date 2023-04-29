@@ -5,26 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conference Schedule</title>
-    <script src="schedule-editorScript.js"></script>
+    <link rel="stylesheet" href="/styles/universalStyles.css">
+    <link rel="stylesheet" href="/styles/conferenceScheduleStyles.css">
   </head>
   <body>
-    <h1>Conference Schedule</h1>
-    <h1>welcome Organizer</h1>
-    <main class="main-content">
-      <div class="sessions-container">
-        <!-- Session Card 1 -->
-        <!-- <div class="session-card">
-        <div class="session-card-header">
-          <h2>Session 1</h2>
+    <div id="page">
+      <div id="row1-col1" class="row1-col1"></div>
+      <div id="row2-col1" class="row2-col1"></div>
+      <div id="row2-col3" class="row2-col3"></div>
+      <header id="header" class="header">
+        <h1>ConfPlus</h1>
+      </header>
+      <nav id="navigation-bar" class="navigation-bar">
+        <a href="#">Home</a>
+        <a href="#">Log out</a>
+      </nav>
+      <main class="main-content">
+        <h2>Available Sessions</h2>
+        <div class="sessions-container">
+          <div class="session-card">
+            <p>Paper title:</p>
+            <p>Presenter:</p>
+            <p>Location:</p>
+            <p>Date:</p>
+            <div id="edit-btns" class="edit-btns">
+              <button id="update-btn" class="update-btn">Update</button>
+              <button id="delete-btn" class="delete-btn">Delete</button>
+            </div>
+          </div>          
         </div>
-        <div class="session-card-body">
-          <p>title :</p>
-          <p>date:</p>
-          <p>location:</p>
-        </div>
-      </div> -->
-      </div>
-      <button class="back-btn">Back</button>
-    </main>
+      </main>
+      <footer id="footer" class="footer">
+        <a href="#">Contact Us</a>
+        <a href="#">About Us</a>
+        <a href="#">Help</a>
+    </footer>    
+    </div>
+    <script src="schedule-editorScript.js"></script>
   </body>
 </html>
+      <!-- <button class="back-btn">Back</button> -->

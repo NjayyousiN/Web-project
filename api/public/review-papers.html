@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title</title>
+    <title>Review Papers</title>
     <link rel="stylesheet" href="/styles/universalStyles.css">
     <link rel="stylesheet" href="/styles/reviewPageStyle.css">
 </head>
-<body>  
+<body>      
     <div id="page">
         <header id="header" class="header">
           <h1>ConfPlus</h1>
@@ -34,8 +34,9 @@
             </div>
           </div>  
         </main>
-        <div id="form" class="form">
+        <section id="form" class="form">
           <form id="review-form" class="review-form">
+            <h2>Review Form</h2>
             <fieldset id="overall-evaluation">
               <legend>Overall evaluation:</legend>
               <label><input type="radio" name="overall-evaluation" value="-2" />-2: Strong reject</label>
@@ -46,19 +47,23 @@
             </fieldset>
             <fieldset id="paper-contribution">
               <legend>Paper contribution:</legend>
-              <label><input type="radio" name="paper-contribution" value="1" />1: No obvious contribution</label>
-              <label><input type="radio" name="paper-contribution" value="2" />2: No obvious contribution</label>
-              <label><input type="radio" name="paper-contribution" value="3" />3: Minor contribution</label>
-              <label><input type="radio" name="paper-contribution" value="4" />4: Clear contribution</label>
-              <label><input type="radio" name="paper-contribution" value="5" />5: Major and significant contribution</label>
+              <label><input type="radio" name="paper-contribution" value="1" required />1: No obvious contribution</label>
+              <label><input type="radio" name="paper-contribution" value="2" required />2: No obvious contribution</label>
+              <label><input type="radio" name="paper-contribution" value="3" required />3: Minor contribution</label>
+              <label><input type="radio" name="paper-contribution" value="4" required />4: Clear contribution</label>
+              <label><input type="radio" name="paper-contribution" value="5" required />5: Major and significant contribution</label>
             </fieldset>
-            <label for="paper-strengths">Paper strengths:</label>
-            <textarea name="paper-strengths" id="paper-strengths"></textarea>
-            <label for="paper-weaknesses">Paper weaknesses:</label>
-            <textarea name="paper-weaknesses" id="paper-weaknesses"></textarea>
-            <button type="submit">Submit Review</button>
+            <div id="paper-strengths-section" class="paper-strengths-section">
+              <textarea name="paper-strengths" id="paper-strengths" placeholder="Paper strengths" required></textarea>  
+            </div>
+            <div id="paper-weaknesses-section" class="paper-weaknesses-section">
+              <textarea name="paper-weaknesses" id="paper-weaknesses" placeholder="Paper weaknesses" required></textarea>
+              <div id="submit-button" class="submit-button">
+                <button type="submit">Submit Review</button>
+              </div>
+            </div>
           </form>  
-        </div>
+        </section>
         <footer id="footer" class="footer">
           <a href="#">Contact Us</a>
           <a href="#">About Us</a>
