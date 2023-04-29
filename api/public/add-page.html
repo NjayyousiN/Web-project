@@ -5,36 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Schedule</title>
-    <script src="addpageScript.js" type="module"></script>
+    <link rel="stylesheet" href="./styles/universalStyles.css">
+    <link rel="stylesheet" href="./styles/addSession.css">
   </head>
   <body>
-    <section id="main-content">
-      <form id="add-session-form">
-        <!-- papers with 2 overall evualtion  -->
-
-        <label for="paper-dropdown">Select paper:</label>
-        <select id="paper-dropdown" required></select>
-
-        <!-- authours for this papaer -->
-        <label for="presenter-dropdown">Select presenter:</label>
-        <select id="presenter-dropdown" required></select>
-
-        <label for="location-dropdown">Select location:</label>
-        <select id="location-dropdown" required></select>
-
-        <label for="data-dropdown">Select date:</label>
-        <select id="date-dropdown" required></select>
-
-        <label for="fromTime">From:</label>
-        <input type="time" id="fromTime" name="fromTime" required />
-        <label for="toTime">To:</label>
-        <input type="time" id="toTime" name="toTime" required />
-
-        <button type="submit">Add</button>
-        <button type="reset">clear</button>
-      </form>
-
-      <button class="back-btn">Back</button>
-    </section>
+    <div id="page">
+      <div id="row1-col1" class="row1-col1"></div>
+      <div id="row2-col1" class="row2-col1"></div>
+      <div id="row2-col3" class="row2-col3"></div>
+      <header id="header" class="header">
+        <h1>ConfPlus</h1>
+      </header>
+      <nav id="navigation-bar" class="navigation-bar">
+        <a href="#">Home</a>
+        <a href="#">Log out</a>
+      </nav>
+      <main id="main-content" class="main-content">
+        <h2>Add Session</h2>
+        <form id="add-session-form" class="add-session-form">
+          <!-- papers with 2 overall evualtion  -->
+          <div id="choose-paper" class="choose-paper">
+            <label for="paper-dropdown">Select paper:</label>
+            <select id="paper-dropdown" required></select>
+          </div>
+          <!-- authors for this papaer -->
+          <div id="choose-presenter" class="choose-presenter">
+            <label for="presenter-dropdown">Select presenter:</label>
+            <select id="presenter-dropdown" required></select>
+          </div>
+          <div id="choose-location" class="choose-location">
+            <label for="location-dropdown">Select location:</label>
+            <select id="location-dropdown" required></select>
+          </div>
+          <div id="choose-date" class="choose-date">
+            <label for="date-dropdown">Select date:</label>
+            <select id="date-dropdown" required></select>
+          </div>
+          <div id="choose-from-time" class="choose-from-time">
+            <label for="fromTime">From:</label>
+            <input type="time" id="fromTime" name="fromTime" required />
+          </div>
+          <div id="choose-to-time" class="choose-to-time">
+            <label for="toTime">To:</label>
+            <input type="time" id="toTime" name="toTime" required />
+          </div>
+          <div id="edit-btns" class="edit-btns">
+            <button type="submit">Add</button>
+            <button type="reset">Clear</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <footer id="footer" class="footer">
+      <a href="#">Contact Us</a>
+      <a href="#">About Us</a>
+      <a href="#">Help</a>
+    </footer>    
+    <script src="addpageScript.js" type="module"></script>
   </body>
 </html>
