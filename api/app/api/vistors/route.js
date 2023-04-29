@@ -4,12 +4,12 @@ import * as repo from "./repository.js";
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const date = await repo.readDate();
-    if (date.length === 0) {
-      return Response.json({ message: " No date found" }, { status: 404 });
+    const schedule = await repo.readSchedule();
+    if (schedule.length === 0) {
+      return Response.json({ message: "No schedule found" }, { status: 404 });
     }
-    if (date) {
-      return Response.json(date, { status: 200 });
+    if (schedule) {
+      return Response.json(schedule, { status: 200 });
     }
   } catch (error) {
     console.error(error.message);
@@ -19,3 +19,4 @@ export async function GET(request, { params }) {
     );
   }
 }
+

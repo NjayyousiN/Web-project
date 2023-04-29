@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const filterdPapers = papers.filter((paper) => {
     return (
       paper.reviews &&
-      paper.reviews.every((review) => {
+      paper.reviews.some((review) => {
         return review.evaluation >= 2;
       })
     );

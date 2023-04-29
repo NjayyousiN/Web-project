@@ -1,76 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paper Submission</title>
-    <link rel="stylesheet" href="/styles/universalStyles.css">
-    <link rel="stylesheet" href="/styles/submitPageStyles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/universalStyles.css" />
+    <link rel="stylesheet" href="styles/submitPageStyles.css" />
+  </head>
+  <body>
     <div id="main-content">
-        <header id="header" class="header">
-            <h1>ConfPlus</h1>
-        </header>
-        <nav id="navigation-bar" class="navigation-bar">
-            <a href="#">Home</a>
-            <a href="#">Log out</a>
-        </nav>
-        <main id="paperForm" class="paperForm">
-            <form>
-                <div id="input-fields" class="input-fields">
-                    <div id="title" class="title">
-                        <!-- insert icon here -->
-                        <h1>Paper Submission</h1>
-                    </div>  
-                    <div id="paper-info" class="paper-info">
-                        <h2>Paper Details</h2>
-                        <input type="text" id="title" name="title" placeholder="Paper Title" required>
-                        <textarea id="abstract" name="abstract" rows="4" cols="50" placeholder="Abstract idea of the article" required></textarea>
-                    </div>
-                    <div id="authors-personal-info" class="authors-personal-info">
-                        <h2>Author Information</h2>
-                        <input type="text" id="first_name" name="authors[][first_name]" placeholder="First Name" required>
-                        <input type="text" id="last_name" name="authors[][last_name]" placeholder="Last Name" required>
-                        <input type="email" id="email" name="authors[][email]" placeholder="Email" required>
-                    </div>
-                    <div id="affiliation-presenter-select" class="affiliation-presenter-select">
-                        <div id="affiliation" class="affiliation">
-                            <label for="affiliation">Affiliation</label>
-                            <select id="affiliation" name="affiliation" required></select>
-                        </div>
-                        <div id="presenters" class="presenters">
-                            <label for="presenters">Presenter</label>
-                            <select id="presenters" name="presenters" required></select>
-                        </div>
-                    </div>    
-                    <div id="add-button" class="add-button">
-                        <button type="button" id="add-author">Add Author</button>
-                    </div>
-                    <div id="remove-author" class="remove-author">
-                        <label for="removeAuthor">Remove Author:</label>
-                        <select id="removeAuthor" name="removeAuthor" required>
-                        </select>
-                        <button type="button" id="remove-author">Remove Author</button>
-                    </div>
-                    <div id="paper-upload" class="paper-upload">
-                        <label for="paper_pdf">Upload Paper PDF:</label>
-                        <input type="file" id="paper_pdf" name="paper_pdf" accept="application/pdf" multiple>
-                    </div>
-                    <div id="submit-button" class="submit-button">
-                        <input type="submit" value="Submit Paper" id="submit_paper">             
-                    </div>
-                </div>
-            </form>    
-        </main>
-        <footer id="footer" class="footer">
-            <a href="#">Contact Us</a>
-            <a href="#">About Us</a>
-            <a href="#">Help</a>
-        </footer>    
+      <header id="header" class="header">
+        <h1>ConfPlus</h1>
+      </header>
+      <nav id="navigation-bar" class="navigation-bar">
+        <a href="index.html">Home</a>
+        <a href="login-page.html">Log out</a>
+      </nav>
+      <main id="paperForm" class="paperForm">
+        <form>
+          <div id="input-fields" class="input-fields">
+            <div id="title" class="title">
+              <!-- insert icon here -->
+              <h1>Paper Submission</h1>
+            </div>
+            <div id="paper-info" class="paper-info">
+              <h2>Paper Details</h2>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Paper Title"
+                required
+              />
+              <textarea
+                id="abstract"
+                name="abstract"
+                rows="4"
+                cols="50"
+                placeholder="Abstract idea of the article"
+                required
+              ></textarea>
+            </div>
+            <div id="authors-personal-info" class="authors-personal-info">
+              <h2>Author Information</h2>
+              <input
+                type="text"
+                id="first_name"
+                name="authors[][first_name]"
+                placeholder="First Name"
+                required
+              />
+              <input
+                type="text"
+                id="last_name"
+                name="authors[][last_name]"
+                placeholder="Last Name"
+                required
+              />
+              <input
+                type="email"
+                id="email"
+                name="authors[][email]"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div
+              id="affiliation-presenter-select"
+              class="affiliation-presenter-select"
+            >
+              <div id="affiliation2" class="affiliation">
+                <label for="affiliation">Affiliation</label>
+                <select id="affiliation" name="affiliation" required>
+                  <option value="" disabled selected>Select Affiliation</option>
+                </select>
+              </div>
+              <div id="presenters2" class="presenters">
+                <label for="presenters">Presenter</label>
+                <select id="presenters" name="presenters" required>
+                  <option value="" disabled selected>Select Presenter</option>
+                </select>
+              </div>
+            </div>
+            <div id="add-button" class="add-button">
+              <button type="button" id="add-author">Add Author</button>
+            </div>
+            <div id="remove-author2" class="remove-author">
+              <label for="removeAuthor">Remove Author:</label>
+              <select id="removeAuthor" name="removeAuthor" required>
+                <option value="" disabled selected>Select Author</option>
+              </select>
+
+              <button type="button" id="remove-author">Remove Author</button>
+            </div>
+            <div id="paper-upload" class="paper-upload">
+              <label for="paper_pdf">Upload Paper PDF:</label>
+              <input
+                type="file"
+                id="paper_pdf"
+                name="paper_pdf"
+                accept="application/pdf"
+                multiple
+              />
+            </div>
+            <div id="submit-button" class="submit-button">
+              <input type="submit" value="Submit Paper" id="submit_paper" />
+            </div>
+          </div>
+        </form>
+      </main>
+      <footer id="footer" class="footer">
+        <a href="#">Contact Us</a>
+        <a href="#">About Us</a>
+        <a href="#">Help</a>
+      </footer>
     </div>
     <script src="script.js" type="module"></script>
-</body>
+  </body>
 </html>
-
-

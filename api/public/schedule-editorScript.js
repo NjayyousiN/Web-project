@@ -132,6 +132,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("Heading to the panel page");
 
     // ADD THE URL OF THE PANEL PAGE
-    window.location.href = "schedule-viewer.html";
+    window.location.href = "index.html";
   });
 });

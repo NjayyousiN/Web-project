@@ -227,18 +227,23 @@ class ConfPlus {
       });
 
       console.log("[INFO] Paper saved successfully:", paperDetails);
+      alert("Paper submitted successfully");
+      //reload page
+      location.reload();
     } catch (err) {
       console.error(
         "[ERROR] An error occurred while submitting the paper:",
         err
       );
+      alert("Paper submission failed");
+      //reload page
     }
   }
 
   // Fill drop-down lists
   async populateDropList() {
     const institutions = await confPlus.getInstitutionsData();
-    document.querySelector("#affiliation").innerHTML = institutions
+    document.querySelector("#affiliation").innerHTML += institutions
       .map(
         (institution) =>
           `<option value ="${institution.institution}"> ${institution.institution}</option>`
@@ -246,14 +251,14 @@ class ConfPlus {
       .join(" ");
 
     const authors = await confPlus.getAuthorsData();
-    document.querySelector("#presenters").innerHTML = authors
+    document.querySelector("#presenters").innerHTML += authors
       .map(
         (author) => `<option value ="${author.fname}"> ${author.fname}</option>`
       )
       .join(" ");
 
     const presenters = await confPlus.getAuthorsData();
-    document.querySelector("#removeAuthor").innerHTML = presenters
+    document.querySelector("#removeAuthor").innerHTML += presenters
       .map(
         (author) => `<option value ="${author.fname}"> ${author.fname}</option>`
       )
@@ -262,7 +267,6 @@ class ConfPlus {
 
   /*                                       CASE 3 STARTS HERE                                       */
 
-  ///********************************** error  HERE ******************************/
   async fetchAssignedPapers(reviewerId) {
     console.log(
       `[INFO] Fetching assigned papers for reviewerId: ${reviewerId}`
@@ -272,8 +276,6 @@ class ConfPlus {
       const response = await fetch("http://localhost:3000/api/papers", {
         method: "GET",
       });
-
-      console.log("[INFO] Server response:", response);
       const papers = await response.json();
 
       const assignedPapers = papers.filter(
@@ -288,26 +290,26 @@ class ConfPlus {
         document.querySelector("#assigned-papers");
       assignedPapersContainer.innerHTML = "";
 
+      //String literal below needs to be changed to the figma design***
       assignedPapers.forEach((paper) => {
         assignedPapersContainer.innerHTML += `
-      <input type="hidden" id="paper-id" value="${paper.id}">
-        <div class="paper">
-        <h4>Title: ${paper.title}</h4>
-        <p>Authors: ${paper.authors
+			<input type="hidden" id="paper-id" value="${paper.id}">
+			  <div class="paper">
+				<h4>Title: ${paper.title}</h4>
+				<p>Authors: ${paper.authors
           .map((author) => `${author.firstName} ${author.lastName}`)
           .join(", ")}</p>
-        <div class="abstract">
-          <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
-          <p class="abstract-content">${paper.abstract}</p>
-        </div>
-        <p>Article link: <a href="${paper.pdfURL}" download>${
-          paper.title
-        }</a></p>
-        <button class="select" data-paper-id="${paper.id}">Select</button>
-        </div>
-      `;
+				<div class="abstract">
+				  <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
+				  <p class="abstract-content">${paper.abstract}</p>
+				</div>
+				<p>Article link: <a href="${paper.pdfURL}" download>${paper.title}</a></p>
+				<button class="select" data-paper-id="${paper.id}">Select</button>
+			  </div>
+			`;
       });
 
+      // Event listener for the "select" button
       document.querySelectorAll(".select").forEach((button) =>
         button.addEventListener("click", () => {
           const paperId = button.dataset.paperId;
@@ -320,7 +322,6 @@ class ConfPlus {
       );
     }
   }
-  /*************************************************error above **************************** */
 
   async loadReviewForm(paperId, reviewerId) {
     const response = await fetch(
@@ -357,10 +358,6 @@ class ConfPlus {
 
     document.querySelector("#paper-id").value = paper.id;
   }
-
-  /*         *****************************            CASE 4 STARTS HERE                  *********************************                     */
-
-  // retrive schedules from the server
 }
 
 //Instantiation of ConfPlus Class
@@ -377,8 +374,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const submitPaperForm = document.querySelector("#paperForm");
   const assignedPapersDiv = document.querySelector("#assigned-papers");
   const reviewForm = document.getElementById("review-form");
-  const scheduleFormPage = document.querySelector(".sessions-container");
-
   let reviewerId;
 
   // Fetching assigned papers
@@ -399,11 +394,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const email = document.querySelector("#email").value;
       const password = document.querySelector("#password").value;
       const login_attempt = await confPlus.login(email, password);
-      reviewerId = login_attempt.user.id;
-      console.log(`[INFO] Reviewer ID is: ${reviewerId}`);
 
       // If the login was successful, redirect to the referenced pages according to the user type
       if (login_attempt.success) {
+        reviewerId = login_attempt.user.id;
+        console.log(`[INFO] Reviewer ID is: ${reviewerId}`);
         console.log(login_attempt.message);
         const userFound = login_attempt.user;
         let redirectUrl = "";
@@ -427,11 +422,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.replace(redirectUrl);
       } else {
         // Log it
-        console.log(`[ERROR] ${login_attempt.message}`);
-
+        console.log(`${login_attempt.message}`);
+        alert("[ALERT] Wrong Email or Password. Retry again.");
         // Else, refresh page and send an alert
         await confPlus.loadPage("login-page.html");
-        alert("[ALERT] Wrong Email or Password. Retry again.");
       }
     });
   }
@@ -474,18 +468,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           const addedAuthor = await authorDetails.json();
           addedAuthors.push(addedAuthor);
 
-          // temporary code for testing. DELETE LATER.
-          console.log(addedAuthors);
-          const authorsContainer = document.querySelector("#authors-container");
-          const authorDiv = document.createElement("div");
-          authorDiv.classList.add("author");
-          authorDiv.innerHTML = `
-							<h3>${addedAuthor.fname} ${addedAuthor.lname}</h3>
-							<p>Email: ${addedAuthor.email}</p>
-							<p>Affiliation: ${addedAuthor.affiliation}</p>
-					`;
-          authorsContainer.appendChild(authorDiv);
+          console.log(`[INFO] Added Authors: ${JSON.stringify(addedAuthors)}`);
+          alert("Author added successfully");
         } else {
+          alert("Failed to add author");
           console.error(`[ERROR] An Error occured while adding an author`);
         }
       });
@@ -518,7 +504,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             addedAuthors = addedAuthors.filter(
               (author) => author.id !== selectedAuthor.id
             );
+
+            if (response.ok) {
+              alert("Author removed successfully");
+            }
           } catch (err) {
+            alert("Failed to remove author");
             console.error(
               `[ERROR] An error occurred during fetching institutions data. ${err}`
             );
@@ -598,59 +589,54 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  //    //         ERRORRRRR HERE       //                                          //
   // Event listener for submitting the review
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const storedReviewerId2 = localStorage.getItem("reviewerId");
 
-  if (reviewForm) {
-    reviewForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const storedReviewerId2 = localStorage.getItem("reviewerId");
+    const overallEvaluationInput = document.querySelector(
+      'input[name="overall-evaluation"]:checked'
+    );
+    const overallEvaluation = overallEvaluationInput
+      ? parseInt(overallEvaluationInput.value)
+      : null;
+    const paperContribution = parseInt(
+      document.querySelector('input[name="paper-contribution"]:checked').value
+    );
+    const paperStrengths = document.getElementById("paper-strengths").value;
+    const paperWeaknesses = document.getElementById("paper-weaknesses").value;
 
-      const overallEvaluationInput = document.querySelector(
-        'input[name="overall-evaluation"]:checked'
-      );
-      const overallEvaluation = overallEvaluationInput
-        ? parseInt(overallEvaluationInput.value)
-        : null;
-      const paperContribution = parseInt(
-        document.querySelector('input[name="paper-contribution"]:checked').value
-      );
-      const paperStrengths = document.getElementById("paper-strengths").value;
-      const paperWeaknesses = document.getElementById("paper-weaknesses").value;
+    const paperId = document.getElementById("paper-id").value; // Add this line to get the paper ID from the hidden input field
 
-      const paperId = document.getElementById("paper-id").value; // Add this line to get the paper ID from the hidden input field
+    const review = {
+      reviewerId: storedReviewerId2,
+      evaluation: overallEvaluation,
+      contribution: paperContribution,
+      strengths: paperStrengths,
+      weaknesses: paperWeaknesses,
+    };
 
-      const review = {
-        reviewerId: storedReviewerId2,
-        evaluation: overallEvaluation,
-        contribution: paperContribution,
-        strengths: paperStrengths,
-        weaknesses: paperWeaknesses,
-      };
+    try {
+      const updatedPaper = await fetch("http://localhost:3000/api/papers", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ paperId, review }), // Include the paperId property in the request body
+      });
 
-      try {
-        const updatedPaper = await fetch("http://localhost:3000/api/papers", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ paperId, review }), // Include the paperId property in the request body
-        });
-
-        alert("Review submitted successfully!");
-        console.log(updatedPaper);
-      } catch (error) {
-        console.error(error);
-        alert("Error submitting review.");
-      }
-    });
-  }
-  //                                       ERRORRRRR HERE       //                                          //
+      alert("Review submitted successfully!");
+      console.log(updatedPaper);
+    } catch (error) {
+      console.error(error);
+      alert("Error submitting review.");
+    }
+  });
 
   // Event lisener for "select" and loading form. Also handles collapsation of abstract
-  const assigned_papers = document.querySelector("#assigned-papers");
-  if (assigned_papers) {
-    assigned_papers.addEventListener("click", (event) => {
+  document
+    .querySelector("#assigned-papers")
+    .addEventListener("click", (event) => {
       if (event.target.classList.contains("select")) {
         const paperId = event.target.dataset.paperId;
         const reviewerId = localStorage.getItem("reviewerId");
@@ -666,14 +652,4 @@ document.addEventListener("DOMContentLoaded", async () => {
         icon.textContent = icon.textContent === "+" ? "-" : "+";
       }
     });
-  }
-
-  // ************************************* case 4 START  *************************************/
-
-  // ************************************* ADD PAGE  *************************************/
-
-  /// ************************************* UPDATE PAGE  *************************************/
-  // done in the update page.js file
-
-  // ************************************* case 4 END   *************************************/
 });
