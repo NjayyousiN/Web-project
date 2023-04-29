@@ -47,7 +47,7 @@ label {
     border-style: solid;
 }
 
-/* add and clear buttons */
+/* update and clear buttons */
 .edit-btns {
     margin: 10px 13px;
     display: flex;
