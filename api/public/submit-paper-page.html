@@ -13,8 +13,8 @@
         <h1>ConfPlus</h1>
       </header>
       <nav id="navigation-bar" class="navigation-bar">
-        <a href="#">Home</a>
-        <a href="#">Log out</a>
+        <a href="index.html">Home</a>
+        <a href="login-page.html">Log out</a>
       </nav>
       <main id="paperForm" class="paperForm">
         <form>
@@ -71,11 +71,15 @@
             >
               <div id="affiliation2" class="affiliation">
                 <label for="affiliation">Affiliation</label>
-                <select id="affiliation" name="affiliation" required></select>
+                <select id="affiliation" name="affiliation" required>
+                  <option value="" disabled selected>Select Affiliation</option>
+                </select>
               </div>
               <div id="presenters2" class="presenters">
                 <label for="presenters">Presenter</label>
-                <select id="presenters" name="presenters" required></select>
+                <select id="presenters" name="presenters" required>
+                  <option value="" disabled selected>Select Presenter</option>
+                </select>
               </div>
             </div>
             <div id="add-button" class="add-button">
@@ -83,7 +87,10 @@
             </div>
             <div id="remove-author2" class="remove-author">
               <label for="removeAuthor">Remove Author:</label>
-              <select id="removeAuthor" name="removeAuthor" required></select>
+              <select id="removeAuthor" name="removeAuthor" required>
+                <option value="" disabled selected>Select Author</option>
+              </select>
+
               <button type="button" id="remove-author">Remove Author</button>
             </div>
             <div id="paper-upload" class="paper-upload">
