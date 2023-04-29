@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
   try {
     const date = await repo.readDate();
     if (date.length === 0) {
-      return Response.json({ message: " No Location found" }, { status: 404 });
+      return Response.json({ message: " No date found" }, { status: 404 });
     }
     if (date) {
       return Response.json(date, { status: 200 });
