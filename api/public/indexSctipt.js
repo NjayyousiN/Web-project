@@ -23,34 +23,23 @@ async function loadSessions(sessionsContainer, sessions) {
 }
 
 function loadTemplate(session, index) {
-  return ` <div class="session-card">
+  return `<div class="session-card">
   <div class="session-card-header">
-    <h2>Session ${index}</h2>
+    <h2>Session ${sessionIndex}</h2>
   </div>
   <div class="session-card-body">
-    <div class="session-title">
-      <label for="session-title">Title:</label>
-      <p>${session.title}</p>
-    </div>
-    <div class="session-presenter">
-      <label for="session-presenter">Presenter:</label>
-      <p>${session.presenter}</p>
-    </div>
-    <div class="session-location">
-      <label for="session-location">Location:</label>
-      <p>${session.location}</p>
-    </div>
-    <div class="session-date">
-      <label for="session-date">Date:</label>
-      <p>${session.date}</p>
-    </div>
-    <div class="session-time">
-      <label for="session-time">Time:</label>
-      <p>${session.FromTime} - ${session.ToTime}</p>
-    </div>
-  </div>
+  <p class="session-title">Paper Title: ${session.title}</p>
+  <p class="session-presenter">Presenter: ${session.presenter}</p>
+  <p>Location: ${session.location}</p>
+  <p>Date: ${session.date}</p>
+  <p>Start Time: ${session.FromTime}</p>
+  <p>End Time: ${session.ToTime}</p>
 </div>
-`;
+<div class="session-card-buttons">
+  <button class="delete-session-btn" data-title="${session.title}">Delete</button>
+  <button class="update-session-btn" >Update</button>
+</div>
+</div>`;
 }
 
 // function to populate the dropdown with dates
@@ -70,7 +59,7 @@ async function loadDates(dateDropdown) {
 document.addEventListener("DOMContentLoaded", async () => {
   // select the dropdown and sessions
   const dateDropdown = document.querySelector("#dates");
-  const sessionsContainer = document.querySelector(".session");
+  const sessionsContainer = document.querySelector(".available-sessions");
 
   // display dates
   await loadDates(dateDropdown);

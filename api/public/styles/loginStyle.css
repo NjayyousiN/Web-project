@@ -18,7 +18,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* box-shadow: #224957 0px 0px 0px 2px, #093545 0px 4px 6px -1px, #224957 0px 1px 0px inset;     */
 }
 
 .main-content > h2, .main-content > h4 {

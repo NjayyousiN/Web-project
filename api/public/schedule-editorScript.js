@@ -37,18 +37,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h2>Session ${sessionIndex}</h2>
           </div>
           <div class="session-card-body">
-          <p class="session-title">Paper Title: ${session.title}</p>
-          <p class="session-presenter">Presenter: ${session.presenter}</p>
-          <p>Location: ${session.location}</p>
-          <p>Date: ${session.date}</p>
-          <p>Start Time: ${session.FromTime}</p>
-          <p>End Time: ${session.ToTime}</p>
-        </div>
-        <div class="session-card-buttons">
-          <button class="delete-session-btn" data-title="${session.title}">Delete</button>
-          <button class="update-session-btn" >Update</button>
-        </div>
-      </div>`;
+            <p class="session-title">${session.title}</p>
+            <p class="session-presenter">Presenter: ${session.presenter}</p>
+            <p>Location: ${session.location}</p>
+            <p>Date: ${session.date}</p>
+          <div class="session-time">
+            <p>Time: ${session.FromTime} - ${session.ToTime}</p>
+          </div>        
+          <div class="session-card-buttons">
+            <button class="delete-session-btn" data-title="${session.title}">Delete</button>
+            <button class="update-session-btn" >Update</button>
+          </div>
+        </div>`;
         })
         .join("");
     } else {
@@ -58,11 +58,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // add event listener to add session button
     const addSessionButton = document.createElement("button");
+    const addButtonDiv = document.querySelector("#add-button")
+    addSessionButton.classList.add("add-session-button")
     addSessionButton.innerText = "Add Session";
     addSessionButton.addEventListener("click", () => {
       window.location.href = "add-page.html";
     });
-    mainContent.appendChild(addSessionButton);
+    addButtonDiv.appendChild(addSessionButton);
 
     // add event listeners to update buttons
     const updateButtons = document.querySelectorAll(".update-session-btn");
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           button.parentElement.parentElement.querySelector(
             ".session-title"
           ).innerText;
+        const extractedTitle = sessionTitle.split(":")[0];
 
         // get the presenter name from the DOM
         const sessionPresenter =
@@ -80,9 +83,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             ".session-presenter"
           ).innerText;
 
+        const extractedPresenter = sessionPresenter.split(":")[1];
+
         // construct the URL to navigate to the update page with query parameters for the title and presenter
         // note the use of '&' to separate the two query parameters, rather than '?'
-        const updatePageUrl = `update-page.html?title=${sessionTitle}&presenter=${sessionPresenter}`;
+        const updatePageUrl = `update-page.html?title=${extractedTitle}&presenter=${extractedPresenter}`;
 
         // navigate to the update page
         window.location.href = updatePageUrl;

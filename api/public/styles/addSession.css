@@ -12,7 +12,7 @@
     font-weight: 100;
     font-size: 3.5rem;
     text-align: center;
-    padding: 5px 0;
+    padding: 20px 0;
 }
 
 /* add session form */
@@ -22,7 +22,7 @@
     align-items: center;
     gap: 100px;
     width: 90%;
-    margin: 60px auto;
+    margin: 59px auto;
 }
 
 label {
@@ -75,3 +75,7 @@ label {
     transform: translateY(-2px);
 }
 
+
+.footer {
+    margin-top: 2px;
+}

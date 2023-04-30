@@ -1,3 +1,10 @@
+#page {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.75fr;
+    grid-template-rows: 200px 1fr 150px;
+}   
+
 .content {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
@@ -59,25 +66,31 @@
 
 /* available sessions view */
 .available-sessions {
-    width: 90%;
-    height: fit-content;
+    width: 95%;
     display: flex;
     flex-direction: column;
-    background-color: #093545;
-    border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.session {
-    margin: 10px auto;
-    width: 95%;
-    height: fit-content;
-    background-color: #224957;
+/* session card */
+.session-card {
+    width: 90%;
+    margin: 0px auto 10px;
+    background-color: #a60a0a;
+    /* background-image: linear-gradient(to right, #224957, #F9F6EF);  */
     border-radius: 10px;
-    text-align: left;
-    word-wrap: break-word;
 }
 
-.session > p {
-    padding: 10px;
+.session-card-header {
+    display: flex;
+    justify-content: center;
+}
+
+.session-card-header > h2 {
+    font-weight: 100;
+    font-size: 3.5rem;
+}
+.session-card-body > p {
+    width: 96%;
+    margin: 10px auto;
 }
