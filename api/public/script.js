@@ -447,23 +447,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         const author_lname = document.querySelector("#last_name").value;
         const author_email = document.querySelector("#email").value;
         const author_affiliation = document.querySelector("#affiliation").value;
-
-        const authorDetails = await fetch(
-          "http://localhost:3000/api/articleAuthors",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fname: author_fname,
-              lname: author_lname,
-              email: author_email,
-              affiliation: author_affiliation,
-            }),
-          }
-        );
-
+        //check values not empty
+        let authorDetails;
+        if (
+          author_fname !== "" &&
+          author_lname !== "" &&
+          author_email !== "" &&
+          author_affiliation !== ""
+        ) 
+        {
+          authorDetails = await fetch(
+            "http://localhost:3000/api/articleAuthors",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                fname: author_fname,
+                lname: author_lname,
+                email: author_email,
+                affiliation: author_affiliation,
+              }),
+            }
+          );
+        }
+        else {
+          alert("Please fill all author details");
+          console.error(`[ERROR] An Error occured while adding an author`);
+          return;
+        }
         if (authorDetails.ok) {
           // Update the lists
           await confPlus.populateDropList();
@@ -516,7 +529,8 @@ document.addEventListener("DOMContentLoaded", async () => {
               `[ERROR] An error occurred during fetching institutions data. ${err}`
             );
           }
-        } else {
+        } 
+        else {
           console.error("[ERROR] An Error occurred while removing an author");
         }
       });
