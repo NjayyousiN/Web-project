@@ -236,14 +236,13 @@ class ConfPlus {
         err
       );
       alert("Paper submission failed");
-      //reload page
     }
   }
 
   // Fill drop-down lists
   async populateDropList() {
     const institutions = await confPlus.getInstitutionsData();
-    document.querySelector("#affiliation").innerHTML += institutions
+    document.querySelector("#affiliation").innerHTML = institutions
       .map(
         (institution) =>
           `<option value ="${institution.institution}"> ${institution.institution}</option>`
@@ -251,14 +250,14 @@ class ConfPlus {
       .join(" ");
 
     const authors = await confPlus.getAuthorsData();
-    document.querySelector("#presenters").innerHTML += authors
+    document.querySelector("#presenters").innerHTML = authors
       .map(
         (author) => `<option value ="${author.fname}"> ${author.fname}</option>`
       )
       .join(" ");
 
     const presenters = await confPlus.getAuthorsData();
-    document.querySelector("#removeAuthor").innerHTML += presenters
+    document.querySelector("#removeAuthor").innerHTML = presenters
       .map(
         (author) => `<option value ="${author.fname}"> ${author.fname}</option>`
       )
@@ -491,49 +490,50 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
 
-    // Actions to be taken after clicking on "Remove Author" button
-    document
-      .querySelector("#remove-author")
-      .addEventListener("click", async (e) => {
-        e.preventDefault();
 
-        const author_fname = document.querySelector("#removeAuthor").value;
-        const authors = await confPlus.getAuthorsData();
-        const selectedAuthor = authors.find(
-          (author) => author.fname === author_fname
+// Actions to be taken after clicking on "Remove Author" button
+document
+  .querySelector("#remove-author")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const author_fname = document.querySelector("#removeAuthor").value;
+    const authors = await confPlus.getAuthorsData();
+    const selectedAuthor = authors.find(
+      (author) => author.fname === author_fname
+    );
+
+    if (selectedAuthor) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`,
+          {
+            method: "DELETE",
+          }
         );
 
-        if (selectedAuthor) {
-          try {
-            const response = await fetch(
-              `http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`,
-              {
-                method: "DELETE",
-              }
-            );
+        // Update the lists
+        await confPlus.populateDropList();
 
-            // Update the lists
-            await confPlus.populateDropList();
+        // Remove the "Removed author" from the array
+        addedAuthors = addedAuthors.filter(
+          (author) => author.id !== selectedAuthor.id
+        );
 
-            // Remove the "Removed author" from the array
-            addedAuthors = addedAuthors.filter(
-              (author) => author.id !== selectedAuthor.id
-            );
-
-            if (response.ok) {
-              alert("Author removed successfully");
-            }
-          } catch (err) {
-            alert("Failed to remove author");
-            console.error(
-              `[ERROR] An error occurred during fetching institutions data. ${err}`
-            );
-          }
-        } 
-        else {
-          console.error("[ERROR] An Error occurred while removing an author");
+        if (response.ok) {
+          alert("Author removed successfully");
         }
-      });
+      } catch (err) {
+        alert("Failed to remove author");
+        console.error(
+          `[ERROR] An error occurred during removing author data. ${err}`
+        );
+      }
+    } 
+    else {
+      console.error("[ERROR] Specified author not found while trying to remove");
+    }
+  });
 
     // Actions to be taken after clicking on "Submit Paper" button
     submitPaperForm.addEventListener("submit", async (e) => {
@@ -541,6 +541,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("[INFO] Attempting to submit form...");
       let presenter;
       const paper_title = document.querySelector("#title").value;
+      console.log(`[INFO] Paper title: ${paper_title}`); 
       const paper_abstract = document.querySelector("#abstract").value;
       const selectedAuthors = addedAuthors.map(({ fname, lname }) => {
         return { firstName: fname, lastName: lname };
@@ -590,10 +591,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         presenter,
         attachedPdfs
       );
-
-      // let redirectUrl = '';
-      // redirectUrl = 'schedule-editor.html';
-      // window.location.replace(redirectUrl);
     });
   }
 
