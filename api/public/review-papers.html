@@ -5,172 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Papers</title>
-    <link rel="stylesheet" href="/styles/universalStyles.css">
-    <link rel="stylesheet" href="/styles/reviewPageStyle.css">
+    <link rel="stylesheet" href="./styles/universalStyles.css">
+    <link rel="stylesheet" href="./styles/reviewPageStyle.css">
 </head>
 <body>      
     <div id="page">
-        <header id="header" class="header">
-          <h1>ConfPlus</h1>
-        </header>
-        <nav id="navigation-bar" class="navigation-bar">
-          <a href="#">Home</a>
-          <a href="#">Log out</a>
-        </nav>
-        <main id="cards-display">
-          <div id="assigned-papers" class="assigned-papers">
-            <div id="title" class="title">
-              <h2>Select a card for review</h2>
-            </div>
-            <div id="paper-card" class="paper-card">
-              <p>Title:</p>
-              <p>Abstract:</p>
-              <p>Authors:</p>
-              <p>Article link:</p>
-              <div id="select-button" class="select-button">
-                <!-- insert icon here -->
-                <button id="select-button" class="select-button">select</button>  
-              </div>
-            </div>
-          </div>  
-        </main>
-        <section id="form" class="form">
-          <form id="review-form" class="review-form">
-            <h2>Review Form</h2>
-            <fieldset id="overall-evaluation">
-              <legend>Overall evaluation:</legend>
-              <label><input type="radio" name="overall-evaluation" value="-2" />-2: Strong reject</label>
-              <label><input type="radio" name="overall-evaluation" value="-1" />-1: Reject</label>
-              <label><input type="radio" name="overall-evaluation" value="0" />0: Borderline</label>
-              <label><input type="radio" name="overall-evaluation" value="1" />1: Accept</label>
-              <label><input type="radio" name="overall-evaluation" value="2" />2: Strong accept</label>
-            </fieldset>
-            <fieldset id="paper-contribution">
-              <legend>Paper contribution:</legend>
-              <label><input type="radio" name="paper-contribution" value="1" required />1: No obvious contribution</label>
-              <label><input type="radio" name="paper-contribution" value="2" required />2: No obvious contribution</label>
-              <label><input type="radio" name="paper-contribution" value="3" required />3: Minor contribution</label>
-              <label><input type="radio" name="paper-contribution" value="4" required />4: Clear contribution</label>
-              <label><input type="radio" name="paper-contribution" value="5" required />5: Major and significant contribution</label>
-            </fieldset>
-            <div id="paper-strengths-section" class="paper-strengths-section">
-              <textarea name="paper-strengths" id="paper-strengths" placeholder="Paper strengths" required></textarea>  
-            </div>
-            <div id="paper-weaknesses-section" class="paper-weaknesses-section">
-              <textarea name="paper-weaknesses" id="paper-weaknesses" placeholder="Paper weaknesses" required></textarea>
-              <div id="submit-button" class="submit-button">
-                <button type="submit">Submit Review</button>
-              </div>
-            </div>
-          </form>  
-        </section>
-        <footer id="footer" class="footer">
-          <a href="#">Contact Us</a>
-          <a href="#">About Us</a>
-          <a href="#">Help</a>
-        </footer>   
-    </div>
-    <script src="script.js" type="module"></script>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>title</title>
-    <link rel="stylesheet" href="styles/universalStyles.css" />
-    <link rel="stylesheet" href="styles/reviewPageStyle.css" />
-  </head>
-  <body>
-    <div id="page">
+      <div id="row1-col1" class="row1-col1"></div>
+      <div id="row2-col1" class="row2-col1"></div>
+      <div id="row2-col3" class="row2-col3"></div>
       <header id="header" class="header">
         <h1>ConfPlus</h1>
       </header>
       <nav id="navigation-bar" class="navigation-bar">
-        <a href="index.html">Home</a>
-        <a href="login-page.html">Log out</a>
+        <a href="./index.html">Home</a>
+        <a href="./login-page.html">Log out</a>
       </nav>
       <main id="cards-display">
         <div id="assigned-papers" class="assigned-papers">
           <div id="title" class="title">
             <h2>Select a card for review</h2>
           </div>
-          <div id="paper-card" class="paper-card">
-            <p>Title:</p>
-            <p>Abstract:</p>
-            <p>Authors:</p>
-            <p>Article link:</p>
-            <div id="select-button" class="select-button">
-              <!-- insert icon here -->
-              <button id="select-button" class="select-button">select</button>
-            </div>
-          </div>
-        </div>
+        </div>  
       </main>
-      <div id="form" class="form">
+      <aside id="form" class="form">
         <form id="review-form" class="review-form">
+          <h2>Review Form</h2>
           <fieldset id="overall-evaluation">
             <legend>Overall evaluation:</legend>
-            <label
-              ><input type="radio" name="overall-evaluation" value="-2" />-2:
-              Strong reject</label
-            >
-            <label
-              ><input type="radio" name="overall-evaluation" value="-1" />-1:
-              Reject</label
-            >
-            <label
-              ><input type="radio" name="overall-evaluation" value="0" />0:
-              Borderline</label
-            >
-            <label
-              ><input type="radio" name="overall-evaluation" value="1" />1:
-              Accept</label
-            >
-            <label
-              ><input type="radio" name="overall-evaluation" value="2" />2:
-              Strong accept</label
-            >
+            <label><input type="radio" name="overall-evaluation" value="-2" />-2: Strong reject</label>
+            <label><input type="radio" name="overall-evaluation" value="-1" />-1: Reject</label>
+            <label><input type="radio" name="overall-evaluation" value="0" />0: Borderline</label>
+            <label><input type="radio" name="overall-evaluation" value="1" />1: Accept</label>
+            <label><input type="radio" name="overall-evaluation" value="2" />2: Strong accept</label>
           </fieldset>
           <fieldset id="paper-contribution">
             <legend>Paper contribution:</legend>
-            <label
-              ><input type="radio" name="paper-contribution" value="1" />1: No
-              obvious contribution</label
-            >
-            <label
-              ><input type="radio" name="paper-contribution" value="2" />2: No
-              obvious contribution</label
-            >
-            <label
-              ><input type="radio" name="paper-contribution" value="3" />3:
-              Minor contribution</label
-            >
-            <label
-              ><input type="radio" name="paper-contribution" value="4" />4:
-              Clear contribution</label
-            >
-            <label
-              ><input type="radio" name="paper-contribution" value="5" />5:
-              Major and significant contribution</label
-            >
+            <label><input type="radio" name="paper-contribution" value="1" required />1: No obvious contribution</label>
+            <label><input type="radio" name="paper-contribution" value="2" required />2: No obvious contribution</label>
+            <label><input type="radio" name="paper-contribution" value="3" required />3: Minor contribution</label>
+            <label><input type="radio" name="paper-contribution" value="4" required />4: Clear contribution</label>
+            <label><input type="radio" name="paper-contribution" value="5" required />5: Major and significant contribution</label>
           </fieldset>
-          <label for="paper-strengths">Paper strengths:</label>
-          <textarea name="paper-strengths" id="paper-strengths"></textarea>
-          <label for="paper-weaknesses">Paper weaknesses:</label>
-          <textarea name="paper-weaknesses" id="paper-weaknesses"></textarea>
-          <button type="submit">Submit Review</button>
-        </form>
-      </div>
-      <footer id="footer" class="footer">
-        <a href="#">Contact Us</a>
-        <a href="#">About Us</a>
-        <a href="#">Help</a>
-      </footer>
+          <div id="paper-strengths-section" class="paper-strengths-section">
+            <textarea name="paper-strengths" id="paper-strengths" placeholder="Paper strengths" required></textarea>  
+          </div>
+          <div id="paper-weaknesses-section" class="paper-weaknesses-section">
+            <textarea name="paper-weaknesses" id="paper-weaknesses" placeholder="Paper weaknesses" required></textarea>
+          </div>
+          <div id="submit-button" class="submit-button">
+            <button type="submit">Submit Review</button>
+          </div>
+        </form>  
+      </aside>
+      <footer id="footer" class="footer"></footer>   
     </div>
     <script src="script.js" type="module"></script>
   </body>
-</html>
-
-</body>
 </html>

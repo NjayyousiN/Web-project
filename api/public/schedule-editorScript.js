@@ -31,30 +31,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         .map((session) => {
           const sessionIndex = index++; // increment index for each item
 
-          return ` <div class="session-card" style="border : 2px solid black">
-        <div class="session-card-header">
-          <h2>Session ${sessionIndex} </h2>
+          return ` 
+        <div class="session-card">
+          <div class="session-card-header">
+            <h2>Session ${sessionIndex}</h2>
+          </div>
+          <div class="session-card-body">
+          <p class="session-title">Paper Title: ${session.title}</p>
+          <p class="session-presenter">Presenter: ${session.presenter}</p>
+          <p>Location: ${session.location}</p>
+          <p>Date: ${session.date}</p>
+          <p>Start Time: ${session.FromTime}</p>
+          <p>End Time: ${session.ToTime}</p>
         </div>
-        <div class="session-card-body">
-        <label for="session-title">Title:</label>
-        <p class="session-title">${session.title}</p>
-
-        <label for="session-presenter">Presenter:</label>
-        <p class="session-presenter">${session.presenter}</p>
-
-        <label for="session-location">Location:</label>
-        <p>${session.location}</p>
-        
-        <label for="session-date">Date:</label>
-        <p>${session.date}</p>
-        
-        <label for="session-start">Start Time:</label>
-        <p>${session.FromTime}</p>
-
-        <label for="session-end">End Time:</label>
-        <p>${session.ToTime}</p>
-        </div>
-        
         <div class="session-card-buttons">
           <button class="delete-session-btn" data-title="${session.title}">Delete</button>
           <button class="update-session-btn" >Update</button>

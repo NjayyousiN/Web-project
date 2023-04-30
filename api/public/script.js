@@ -294,18 +294,20 @@ class ConfPlus {
       assignedPapers.forEach((paper) => {
         assignedPapersContainer.innerHTML += `
 			<input type="hidden" id="paper-id" value="${paper.id}">
-			  <div class="paper">
-				<h4>Title: ${paper.title}</h4>
-				<p>Authors: ${paper.authors
-          .map((author) => `${author.firstName} ${author.lastName}`)
-          .join(", ")}</p>
+			<div class="paper">
+				<p>Title: ${paper.title}<p>
 				<div class="abstract">
 				  <h4 class="abstract-header">Abstract: <span class="collapse-icon">+</span></h4>
 				  <p class="abstract-content">${paper.abstract}</p>
 				</div>
 				<p>Article link: <a href="${paper.pdfURL}" download>${paper.title}</a></p>
-				<button class="select" data-paper-id="${paper.id}">Select</button>
-			  </div>
+        <p>Authors: ${paper.authors
+          .map((author) => `${author.firstName} ${author.lastName}`)
+          .join(", ")}</p>
+        <div id="select-button" class="select-button"
+          <button class="select" data-paper-id="${paper.id}">Select</button>
+        </div>  
+			</div>
 			`;
       });
 

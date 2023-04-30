@@ -132,7 +132,16 @@ a {
     border-radius: 10px;
 }
 
-.session-card > p {
+.session-card-header {
+    display: flex;
+    justify-content: center;
+}
+
+.session-card-header > h2 {
+    font-weight: 100;
+    font-size: 3.5rem;
+}
+.session-card-body > p {
     width: 96%;
     margin: 10px auto;
 }

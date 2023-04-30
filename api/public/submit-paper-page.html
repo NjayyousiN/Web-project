@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paper Submission</title>
     <link rel="stylesheet" href="styles/universalStyles.css" />
-    <link rel="stylesheet" href="styles/submitPageStyles.css" />
+    <link rel="stylesheet" href="styles/submitPage.css"/>
   </head>
   <body>
-    <div id="main-content">
+    <div id="page">
+      <div id="row1-col1" class="row1-col1"></div>
+      <div id="row2-col1" class="row2-col1"></div>
+      <div id="row2-col3" class="row2-col3"></div>
       <header id="header" class="header">
         <h1>ConfPlus</h1>
       </header>
       <nav id="navigation-bar" class="navigation-bar">
-        <a href="index.html">Home</a>
-        <a href="login-page.html">Log out</a>
+        <a href="./index.html">Home</a>
+        <a href="./index.html">Log out</a>
       </nav>
       <main id="paperForm" class="paperForm">
         <form>
@@ -85,13 +88,14 @@
             <div id="add-button" class="add-button">
               <button type="button" id="add-author">Add Author</button>
             </div>
-            <div id="remove-author2" class="remove-author">
+            <div id="remove-author2" class="remove-author2">
               <label for="removeAuthor">Remove Author:</label>
               <select id="removeAuthor" name="removeAuthor" required>
                 <option value="" disabled selected>Select Author</option>
               </select>
-
-              <button type="button" id="remove-author">Remove Author</button>
+              <div id="remove-button" class="remove-button">
+                <button type="button" id="remove-author">Remove Author</button>
+              </div>
             </div>
             <div id="paper-upload" class="paper-upload">
               <label for="paper_pdf">Upload Paper PDF:</label>
@@ -110,9 +114,9 @@
         </form>
       </main>
       <footer id="footer" class="footer">
-        <a href="#">Contact Us</a>
+        <!-- <a href="#">Contact Us</a>
         <a href="#">About Us</a>
-        <a href="#">Help</a>
+        <a href="#">Help</a> -->
       </footer>
     </div>
     <script src="script.js" type="module"></script>
