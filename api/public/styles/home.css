@@ -87,6 +87,10 @@
     gap: 2rem;
 }
 
+.available-sessions > h2 {
+    text-align: center;
+    font-weight: 100;
+}
 /* session card */
 .session-card {
     width: 100%;
@@ -118,3 +122,53 @@
     margin: 1.5rem 2rem;
 }
 
+@media screen and (min-width: 390px) {
+
+    html {
+        font-size: 62.5%;
+    }    
+    
+    body {
+        line-height: 1.8;  
+        font-size: 1.3rem;
+    }
+    
+    #page {
+        /* display: none; */
+        min-height: 150vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 0.5fr 1fr;
+
+    }
+
+    .content {
+        display: none;
+    }
+    .header {
+        grid-row: 1;
+        grid-column: 1 / 2;
+        width: 100%;
+    }
+
+    .navigation-bar {
+        grid-row: 2;
+        grid-column: 1 / 2;
+    }
+
+    .navigation-bar > a {
+        width: 15ch;
+        height: 7ch;
+        text-align: center;
+    }
+
+    .content {
+        display: none;
+    }
+
+    .sessions-view {
+        grid-row: 3;
+        grid-column: 1 / 2;
+    }
+
+}
