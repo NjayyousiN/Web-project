@@ -303,7 +303,7 @@ class ConfPlus {
         <p>Authors: ${paper.authors
           .map((author) => `${author.firstName} ${author.lastName}`)
           .join(", ")}</p>
-        <div id="select-button" class="select-button"
+        <div id="select-button" class="select-button">
           <button class="select" data-paper-id="${paper.id}">Select</button>
         </div>  
 			</div>

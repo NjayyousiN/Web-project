@@ -1,3 +1,11 @@
+/* page layout */
+#page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-template-rows: 200px 1fr 150px;
+}   
+
 /* main-content */
 .main-content {
     grid-row: 2 / 3;
@@ -56,7 +64,12 @@
     padding: 10px 7px;
     background-color: #1A1D24;
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.3;
+
+}
+
+.form-group > input:focus {
+    border-color: #725446;
 }
 /* inner input text */
 ::placeholder {

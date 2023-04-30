@@ -22,6 +22,9 @@
             <div id="title2" class="title">
               <!-- insert icon here -->
               <h1>Paper Submission</h1>
+              <div id="clear-button" class="clear-button">
+                <button type="reset">Clear</button>
+              </div>    
             </div>
             <div id="paper-info" class="paper-info">
               <h2>Paper Details</h2>
@@ -70,13 +73,11 @@
               class="affiliation-presenter-select"
             >
               <div id="affiliation2" class="affiliation">
-                <label for="affiliation">Affiliation</label>
                 <select id="affiliation" name="affiliation" required>
                   <option value="" disabled selected>Select Affiliation</option>
                 </select>
               </div>
               <div id="presenters2" class="presenters">
-                <label for="presenters">Presenter</label>
                 <select id="presenters" name="presenters" required>
                   <option value="" disabled selected>Select Presenter</option>
                 </select>
@@ -86,7 +87,7 @@
               <button type="button" id="add-author">Add Author</button>
             </div>
             <div id="remove-author2" class="remove-author2">
-              <label for="removeAuthor">Remove Author:</label>
+              <label for="removeAuthor">Remove Author</label>
               <select id="removeAuthor" name="removeAuthor" required>
                 <option value="" disabled selected>Select Author</option>
               </select>
@@ -95,7 +96,7 @@
               </div>
             </div>
             <div id="paper-upload" class="paper-upload">
-              <label for="paper_pdf">Upload Paper PDF:</label>
+              <label for="paper_pdf">Upload Paper (PDF Format)</label>
               <input
                 type="file"
                 id="paper_pdf"
@@ -107,9 +108,6 @@
             <div id="submit-button" class="submit-button">
               <input type="submit" value="Submit Paper" id="submit_paper" />
             </div>
-          </div>
-          <div id="clear-button" class="clear-button">
-            <button type="reset">Clear</button>
           </div>
         </form>
       </main>

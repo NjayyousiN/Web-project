@@ -2,7 +2,7 @@
 .main-content {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    background-image: linear-gradient(#093545, #20DF7F);
+    background-color: #F9F6EF;
     border-radius: 10px;
     height: 100%;
     margin: 1px 5px;
@@ -13,6 +13,7 @@
     font-size: 3.5rem;
     text-align: center;
     padding: 5px 0;
+    margin: 4rem 0;
 }
 
 /* update session form */
@@ -26,8 +27,7 @@
 }
 
 label {
-    font-family: DM Sans;
-    color: #F9F6EF;
+    color: #725446;
 }
 
 /* dropdown lists */
@@ -59,10 +59,10 @@ label {
     padding: 10px 20px;
     border-radius: 50px;
     border-style: solid;
-    border-color: #20DF7F;
+    border-color: #1A1D24;
     width: 20ch;
     height: 5ch;
-    background-color: #20DF7F;    
+    background-color: #1A1D24;    
     color: #F9F6EF;
     opacity: 0.7;
     text-align: center;

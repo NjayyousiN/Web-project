@@ -23,22 +23,20 @@ async function loadSessions(sessionsContainer, sessions) {
 }
 
 function loadTemplate(session, index) {
-  return `<div class="session-card">
+  return `
+  <div class="session-card">
   <div class="session-card-header">
-    <h2>Session ${sessionIndex}</h2>
+    <h2>Session ${index}</h2>
   </div>
   <div class="session-card-body">
-  <p class="session-title">Paper Title: ${session.title}</p>
-  <p class="session-presenter">Presenter: ${session.presenter}</p>
-  <p>Location: ${session.location}</p>
-  <p>Date: ${session.date}</p>
-  <p>Start Time: ${session.FromTime}</p>
-  <p>End Time: ${session.ToTime}</p>
-</div>
-<div class="session-card-buttons">
-  <button class="delete-session-btn" data-title="${session.title}">Delete</button>
-  <button class="update-session-btn" >Update</button>
-</div>
+    <p class="session-title">Session Title: ${session.title}</p>
+    <p class="session-presenter">Presenter: ${session.presenter}</p>
+    <p>Location: ${session.location}</p>
+    <p>Date: ${session.date}</p>
+  </div> <!-- Add this closing div tag -->
+  <div class="session-time">
+    <p>Time: ${session.FromTime} - ${session.ToTime}</p>
+  </div>
 </div>`;
 }
 

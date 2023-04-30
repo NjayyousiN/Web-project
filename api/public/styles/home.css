@@ -1,57 +1,44 @@
-/* page layout */
 #page {
-    height: 100vh;
+    min-height: 150vh;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 0.75fr;
-    grid-template-rows: 500px 1fr 150px;
-}   
-
-/* navigation links */
-.navigation-bar {
-    justify-content: flex-end;
-    align-items: flex-start;
-    /* border-bottom-style: solid;
-    border-color: #B6CBE1; */
+    grid-template-columns: 0.5fr 2fr 1.5fr;
+    grid-template-rows: 200px 1fr 150px;
+    gap: 1.5rem;
 }
-
-.navigation-bar > a {
-    margin: 30px;
-}
-
+/* main content */
 .content {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
-    background-color: #224957;
-    margin: 1px;
+    background-color: #F9F6EF;
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-color: #725446;
+    border-style: solid;
 }
 
-/* title */
-.title {
-    padding-top: 15px;
-    text-align: center;
+/* About Us div */
+.intro-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
 }
-
-/* Intro title */
-.title {
-    padding: 50px 80px 25px;
-}
-
 .title > h2 {
-    font-weight: 100;
+    font-weight: strong;
+    margin-bottom: 4rem;
 }
 /* intro text */
 .intro {
-    margin: 0 auto;
-    width: 80%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .intro > p {
     word-wrap: break-word;
     width: 60ch;
 }   
-
 
 /* aside */
 .sessions-view {
@@ -61,9 +48,9 @@
     gap: 20px;
     grid-column: 3 / 4;
     grid-row: 2 / 3;
-    background-color: #224957;
-    margin: 1px 1px;
+    background-color: #F9F6EF;
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 /* filtering title section */
@@ -72,13 +59,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
-
-/* .fa-bars {
-    width: 75px;
-    height: 75px;
-} */
 
 .upcoming-sessions {
     display: flex;
@@ -100,19 +81,20 @@
 
 /* available sessions view */
 .available-sessions {
-    width: 95%;
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    gap: 2rem;
 }
 
 /* session card */
 .session-card {
-    width: 90%;
+    width: 100%;
     margin: 0px auto 10px;
-    background-color: #a60a0a;
-    /* background-image: linear-gradient(to right, #224957, #F9F6EF);  */
+    background-color: #F9F6EF;
     border-radius: 10px;
+    border-color: #725446;
+    border-style: solid;
 }
 
 .session-card-header {
@@ -123,9 +105,16 @@
 .session-card-header > h2 {
     font-weight: 100;
     font-size: 3.5rem;
+    margin: 2rem 0;
 }
 .session-card-body > p {
-    width: 96%;
-    margin: 10px auto;
+    width: 30ch;
+    word-wrap: break-word;
+    /* font-size: 1.5rem; */
+    margin: 1.5rem 2rem; 
+}
+
+.session-time  > p {
+    margin: 1.5rem 2rem;
 }
 

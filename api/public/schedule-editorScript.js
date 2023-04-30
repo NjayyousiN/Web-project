@@ -32,18 +32,19 @@ document.addEventListener("DOMContentLoaded", async () => {
           const sessionIndex = index++; // increment index for each item
 
           return ` 
-        <div class="session-card">
+          <div class="session-card">
           <div class="session-card-header">
             <h2>Session ${sessionIndex}</h2>
           </div>
           <div class="session-card-body">
-            <p class="session-title">${session.title}</p>
+            <p class="session-title">Paper Title: ${session.title}</p>
             <p class="session-presenter">Presenter: ${session.presenter}</p>
             <p>Location: ${session.location}</p>
             <p>Date: ${session.date}</p>
+          </div> <!-- Add this closing div tag -->
           <div class="session-time">
             <p>Time: ${session.FromTime} - ${session.ToTime}</p>
-          </div>        
+          </div>
           <div class="session-card-buttons">
             <button class="delete-session-btn" data-title="${session.title}">Delete</button>
             <button class="update-session-btn" >Update</button>
