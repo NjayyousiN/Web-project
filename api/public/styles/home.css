@@ -63,6 +63,7 @@
     grid-row: 2 / 3;
     background-color: #224957;
     margin: 1px 1px;
+    border-radius: 5px;
 }
 
 /* filtering title section */

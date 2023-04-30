@@ -39,7 +39,7 @@
 .paper-info > input {
     width: 35ch;
     height: 6ch;
-    border-radius: 10px;
+    border-radius: 5px;
     border-style: solid;
     border-color: white;
     margin: 10px 25px;
@@ -48,7 +48,7 @@
 .paper-info > textarea {
     width: 50ch;
     height: 15ch;
-    border-radius: 10px;
+    border-radius: 5px;
     border-style: solid;
     border-color: white;
     margin: 10px 25px;
@@ -69,7 +69,7 @@
 .authors-personal-info > input {
     width: 35ch;
     height: 6ch;
-    border-radius: 10px;
+    border-radius: 5px;
     border-style: solid;
     border-color: white;
     margin: 10px 25px;
@@ -90,7 +90,7 @@
 .affiliation > select, .presenters > select {
     width: 35ch;
     height: 6ch;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .presenters > label {
@@ -136,7 +136,7 @@
 .remove-author2 > select {
     width: 35ch;
     height: 6ch;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .remove-button {
