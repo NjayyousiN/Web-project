@@ -18,26 +18,14 @@
         <a href="./login-page.html">Log out</a>
       </nav>
       <main id="cards-display">
+        <div id="title" class="title">
+          <h2>Select a card for review</h2>
+        </div>
         <div id="assigned-papers" class="assigned-papers">
-          <div id="title" class="title">
-            <h2>Select a card for review</h2>
-          </div>
           <input type="hidden" id="paper-id" value="${paper.id}">
-          <div class="paper">
-            <p>Title:<p>
-            <div class="abstract">
-              <h4 class="abstract-header">Abstract <span class="collapse-icon">+</span></h4>
-              <p class="abstract-content"></p>
-            </div>
-            <p>Article link <a href="${paper.pdfURL}" download></a></p>
-            <p>Authors</p>
-            <div id="select-button" class="select-button">
-              <button class="select" data-paper-id="${paper.id}">Select</button>
-            </div>  
-          </div>    
         </div>  
       </main>
-      <aside id="form" class="form">
+     <aside id="form" class="form">
         <form id="review-form" class="review-form">
           <h2>Review Form</h2>
           <fieldset id="overall-evaluation">
@@ -67,7 +55,6 @@
           </div>
         </form>  
       </aside>
-      <footer id="footer" class="footer"></footer>   
     </div>
     <script src="script.js" type="module"></script>
   </body>
