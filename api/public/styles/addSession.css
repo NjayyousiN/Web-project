@@ -5,6 +5,7 @@
     background-color: #F9F6EF;
     border-radius: 10px;
     height: 100%;
+    margin: 1px 5px;
 }
 
 .main-content > h2 {
@@ -73,7 +74,42 @@ label {
     transform: translateY(-2px);
 }
 
+@media screen and (max-width: 950px) {    
+    body {
+        line-height: 1.8;  
+        font-size: 1.3rem;
+    }
+    
+    #page {
+        min-height: 150vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 0.5fr 1fr;
+    }
 
-.footer {
-    margin-top: 2px;
+    .main-content {
+        grid-row: 3;
+        grid-column: 1 / 2;
+        border-radius: 2px;
+        margin: 0; 
+    }
+
+    .header {
+        grid-row: 1;
+        grid-column: 1 / 2;
+        width: 100%;
+    }
+
+    .navigation-bar {
+        grid-row: 2;
+        grid-column: 1 / 2;
+    }
+
+    .navigation-bar > a {
+        width: 15ch;
+        height: 7ch;
+        text-align: center;
+    }
+
+
 }

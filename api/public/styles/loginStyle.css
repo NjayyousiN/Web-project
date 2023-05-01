@@ -31,11 +31,10 @@
 }
 
 .main-content > h2 {
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .main-content > h4 {
-    margin-top: 6rem;
     margin-bottom: 1.5rem;
 }
 .main-content > h2, .main-content > h4 {
@@ -56,6 +55,7 @@
 }
 /* input fields */
 .form-group > input {
+    color: white;
     height: 6ch;
     width: 35ch;
     border-radius: 10px;
@@ -108,7 +108,7 @@
         min-height: 150vh;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 150px 1fr;
+        grid-template-rows: 150px 1fr 150px;
 
     }
 
