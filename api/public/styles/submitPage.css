@@ -199,5 +199,72 @@ label {
     height: 5ch;
 }
 
+@media screen and (max-width: 950px) {    
+    body {
+        line-height: 1.8;  
+        font-size: 1.3rem;
+    }
+    
+    #page {
+        min-height: 150vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 0.5fr 1fr;
+
+    }
+
+    .content {
+        display: none;
+    }
+    .header {
+        grid-row: 1;
+        grid-column: 1 / 2;
+        width: 100%;
+    }
+
+    .navigation-bar {
+        grid-row: 2;
+        grid-column: 1 / 2;
+    }
+
+    .navigation-bar > a {
+        width: 15ch;
+        height: 7ch;
+        text-align: center;
+    }
+
+    .paperForm {
+        grid-row: 3;
+        grid-column: 1 / 2;
+        border-radius: 2px;
+    }
+
+    input {
+        width: 25ch;
+        height: 6ch;
+    }
+    
+    textarea {
+        width: 30ch;
+        margin: 1rem;
+    }
+    select {
+        width: 25ch;
+        height: 6ch;
+    }    
+    
+    button {
+        width: 25ch;
+        height: 5ch;
+    }
+    
+    .input-fields {
+        margin: 0;
+    }
+
+    .submit-button {
+        margin: 1.5rem 2.5rem 7rem;
+    }
+}
 
 
