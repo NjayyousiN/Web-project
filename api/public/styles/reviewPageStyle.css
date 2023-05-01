@@ -222,9 +222,10 @@ input {
         grid-row: 4;
         grid-column: 1 / 2;
         width: max-content;
-        padding: 2.3rem;
-        margin: 2px;
+        padding: 2.1rem;
         border-radius: 2px;
+        border-color: #725446;
+        border-style: solid;
         
     }
 
