@@ -88,10 +88,10 @@ model PaperReview {
 
 // Relationships
 model PaperReviewer {
-  evaluation    Int
-  contribution  Int
-  strengths     String
-  weaknesses    String
+  evaluation    Int?
+  contribution  Int?
+  strengths     String?
+  weaknesses    String?
   paper         Paper    @relation("ReviewOf", fields: [paperId], references: [id])
   reviewer      User?    @relation("ReviewerOf", fields: [reviewerId], references: [id])
   paperId       String @unique

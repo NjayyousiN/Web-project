@@ -1,12 +1,15 @@
 {
+  "type": "module",
   "name": "api",
   "version": "0.1.0",
   "private": true,
+  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:seed": "node prisma/seed.cjs"
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",
@@ -19,5 +22,8 @@
   },
   "devDependencies": {
     "prisma": "^4.14.1"
+  },
+  "prisma": {
+    "seed": "node seed.cjs"
   }
 }

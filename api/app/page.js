@@ -1,9 +1,6 @@
-import { redirect } from "next/navigation";
-// import styles from './page.module.css';
-
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  redirect("login-page.html");
-    // return <p>HOLDER FOR PUBLIC PAGE.JS</p>
-  
+
 }
