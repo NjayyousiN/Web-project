@@ -1,1 +1,26 @@
-[{"title":"testingcase3","date":"12/06/2023","location":"CSE Meeting Room BCR-E104","presenter":"testingcase3 testingcase3","FromTime":"17:28","ToTime":"07:28"},{"title":"testing_case3","date":"13/06/2023","location":"QU Library B13-201","presenter":"testing_case4 testing_case4@3","FromTime":"04:13","ToTime":"08:16"},{"title":"fadasdfsdaf","date":"13/06/2023","location":"Female Engineering Building C07-145","presenter":"dfsgdsfg fdsgdfsg","FromTime":"19:14","ToTime":"23:14"}]
+[
+  {
+    "title": "testingcase3",
+    "date": "12/06/2023",
+    "location": "CSE Meeting Room BCR-E104",
+    "presenter": "testingcase3 testingcase3",
+    "FromTime": "17:28",
+    "ToTime": "07:28"
+  },
+  {
+    "title": "testing_case3",
+    "date": "13/06/2023",
+    "location": "QU Library B13-201",
+    "presenter": "testing_case4 testing_case4@3",
+    "FromTime": "04:13",
+    "ToTime": "08:16"
+  },
+  {
+    "title": "fadasdfsdaf",
+    "date": "13/06/2023",
+    "location": "Female Engineering Building C07-145",
+    "presenter": "dfsgdsfg fdsgdfsg",
+    "FromTime": "19:14",
+    "ToTime": "23:14"
+  }
+]
