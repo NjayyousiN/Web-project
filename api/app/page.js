@@ -1,15 +1,9 @@
-"use client";
-import { useEffect } from 'react';
+"use client"
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
-  useEffect(() => {
-    // Redirect to the login page on the client-side
-    if (typeof window !== 'undefined') {
-      const router = useRouter();
-      router.push('/login-page.html');
-    }
-  }, []);
-
-  return null;
+  <a href="http://localhost:3000/login-page.html">Click Here!</a>
+    
+  ; 
 }
