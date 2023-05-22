@@ -7,14 +7,14 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-module.exports = {
-  redirects: async() => {
-    return [
-      {
-        source: 'http://localhost:3000/',
-        destination: 'http://localhost:3000/login-page.html',
-        permanent: true,
-      }
-    ]
-  }
-}
+// module.exports = {
+//   redirects: async () => {
+//     return [
+//       {
+//         source: '/',
+//         destination: '/login-page.html',
+//         permanent: false,
+//       },
+//     ];
+//   },
+// };
