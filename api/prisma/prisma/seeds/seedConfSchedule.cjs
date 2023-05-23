@@ -27,9 +27,9 @@ const jsonFilePath = '../../data/schedule.json';
               date: schedule.date,
               location: schedule.location,
               presenter: schedule.presenter,
-              fromTime: schedule.fromTime,
-              toTime: schedule.toTime,
-            },
+              fromTime: 'HH:MM', // Replace with the actual fromTime value for each schedule
+              toTime: 'HH:MM', // Replace with the actual toTime value for each schedule
+                },
           });
         }
     
@@ -40,7 +40,8 @@ const jsonFilePath = '../../data/schedule.json';
         await prisma.$disconnect();
       }
     }
-
-  module.exports = {
-    seedConferenceSchedules,
-  };
+    
+    module.exports = {
+      seedConferenceSchedules,
+    };
+    

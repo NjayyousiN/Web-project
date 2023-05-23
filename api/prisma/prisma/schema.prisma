@@ -19,7 +19,7 @@ model User {
   role        String
   reviews     PaperReview[]  @relation("UserReviews")
   papers      Paper[]        @relation("PaperReviewers")
-  paperReview PaperReviewer? @relation("ReviewerOf")
+  // paperReview PaperReviewer? @relation("ReviewerOf")
 }
 
 model ConferenceSchedule {
@@ -48,7 +48,6 @@ model Paper {
   presenter     ArticleAuthor?   @relation("PresenterOf", fields: [presenterId], references: [id])
   reviews       PaperReview[]    @relation("ReviewOf")
   presenterId   String?
-  paperReview   PaperReviewer?   @relation("ReviewOf")
   
   @@index([presenterId], name: "idx_presenterId")
   @@unique([id, presenterId])
@@ -94,16 +93,16 @@ model PaperReview {
 
 
 // Relationships
-model PaperReviewer {
-  evaluation    Int?
-  contribution  Int?
-  strengths     String?
-  weaknesses    String?
-  paper         Paper    @relation("ReviewOf", fields: [paperId], references: [id])
-  reviewer      User?    @relation("ReviewerOf", fields: [reviewerId], references: [id])
-  paperId       String @unique
-  reviewerId    Int @unique
-  @@id([paperId, reviewerId])
-}
+// model PaperReviewer {
+//   evaluation    Int?
+//   contribution  Int?
+//   strengths     String?
+//   weaknesses    String?
+//   paper         Paper    @relation("ReviewOf", fields: [paperId], references: [id])
+//   reviewer      User?    @relation("ReviewerOf", fields: [reviewerId], references: [id])
+//   paperId       String @unique
+//   reviewerId    Int @unique
+//   @@id([paperId, reviewerId])
+// }
 
 

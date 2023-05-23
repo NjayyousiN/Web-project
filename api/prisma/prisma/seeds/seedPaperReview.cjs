@@ -35,7 +35,7 @@ async function seedPaperReviews() {
               },
             });
           } else {
-            console.log(`[INFO] Skipping duplicate review for paper ${paper.id} and reviewer ${review.reviewerId}`);
+            // console.log(`[INFO] Skipping duplicate review for paper ${paper.id} and reviewer ${review.reviewerId}`);
           }
         }
       }
