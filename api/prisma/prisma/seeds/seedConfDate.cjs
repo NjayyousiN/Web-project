@@ -17,7 +17,7 @@ async function seedConferenceDates() {
         // Check if the conference date already exists in the database based on some unique identifier (e.g., date)
         return !existingDates.some((date) => date.date === item.date);
       });
-  
+
       for (const date of newDates) {
         await prisma.conferenceDate.create({
           data: {

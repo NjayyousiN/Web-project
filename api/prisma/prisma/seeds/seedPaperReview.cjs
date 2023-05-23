@@ -14,19 +14,29 @@ async function seedPaperReviews() {
     const jsonData = readJSONFile(jsonFilePath);
 
     for (const paper of jsonData) {
-      // Create the paper reviews
       if (Array.isArray(paper.reviews)) {
         for (const review of paper.reviews) {
-          await prisma.paperReview.create({
-            data: {
-              evaluation: review.evaluation,
-              contribution: review.contribution,
-              strengths: review.strengths,
-              weaknesses: review.weaknesses,
-              paper: { connect: { id: paper.id } },
-              reviewer: { connect: { id: parseInt(review.reviewerId) } },
+          const existingReview = await prisma.paperReview.findFirst({
+            where: {
+              paperId: paper.id,
+              reviewerId: parseInt(review.reviewerId),
             },
-          });          
+          });
+
+          if (!existingReview) {
+            await prisma.paperReview.create({
+              data: {
+                evaluation: review.evaluation,
+                contribution: review.contribution,
+                strengths: review.strengths,
+                weaknesses: review.weaknesses,
+                paper: { connect: { id: paper.id } },
+                reviewer: { connect: { id: parseInt(review.reviewerId) } },
+              },
+            });
+          } else {
+            console.log(`[INFO] Skipping duplicate review for paper ${paper.id} and reviewer ${review.reviewerId}`);
+          }
         }
       }
     }
@@ -38,6 +48,7 @@ async function seedPaperReviews() {
     await prisma.$disconnect();
   }
 }
+
 
 module.exports = {
   seedPaperReviews,

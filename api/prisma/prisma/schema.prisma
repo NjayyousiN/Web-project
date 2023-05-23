@@ -38,17 +38,22 @@ model PDF {
 }
 
 model Paper {
-  id            String         @id
+  id            String           @id
   title         String
   abstract      String
   pdfURL        String
   createdAt     String
-  reviewers     User[]         @relation("PaperReviewers")
-  presenter     ArticleAuthor? @relation("PresenterOf", fields: [presenterId], references: [id])
-  reviews       PaperReview[]  @relation("ReviewOf")
+  reviewers     User[]           @relation("PaperReviewers")
+  authors       ArticleAuthor[]  @relation("AuthorOf")
+  presenter     ArticleAuthor?   @relation("PresenterOf", fields: [presenterId], references: [id])
+  reviews       PaperReview[]    @relation("ReviewOf")
   presenterId   String?
-  paperReview   PaperReviewer? @relation("ReviewOf")
+  paperReview   PaperReviewer?   @relation("ReviewOf")
+  
+  @@index([presenterId], name: "idx_presenterId")
+  @@unique([id, presenterId])
 }
+
 
 model ConferenceLocation {
   id       Int    @id @default(autoincrement())
@@ -66,25 +71,27 @@ model ConferenceDate {
 }
 
 model ArticleAuthor {
-  id           String   @id
+  id           String           @id
   firstName    String
   lastName     String
   affiliation  String
   email        String
-  papers       Paper[]  @relation("PresenterOf")
+  papers       Paper[]          @relation("AuthorOf")
+  presenter    Paper[]          @relation("PresenterOf")
 }
 
 model PaperReview {
-  id            Int      @id @default(autoincrement())
+  id            Int              @id @default(autoincrement())
   evaluation    Int
   contribution  Int
   strengths     String
   weaknesses    String
-  paper         Paper    @relation("ReviewOf", fields: [paperId], references: [id])
+  paper         Paper            @relation("ReviewOf", fields: [paperId], references: [id])
   paperId       String
-  reviewer      User?    @relation("UserReviews", fields: [reviewerId], references: [id])
+  reviewer      User?            @relation("UserReviews", fields: [reviewerId], references: [id])
   reviewerId    Int?
 }
+
 
 // Relationships
 model PaperReviewer {
