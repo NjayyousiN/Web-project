@@ -1,12 +1,16 @@
-import * as uploadRepo from "./repository.js"
+// import * as uploadRepo from "./repository.js"
 import { Buffer } from "buffer";
+import {
+  readUploadByFilename,
+  createUpload,
+} from '../prismaRepository.js';
 
 export async function GET(request) {
     try {
       const url = new URL(request.url);
       const filename = url.pathname.substring(1); // Removes the leading '/'
 
-      const pdfData = await uploadRepo.readUploadByFilename(filename);
+      const pdfData = await readUploadByFilename(filename);
 
       if (!pdfData) {
         return new Response(
@@ -58,7 +62,7 @@ export async function POST(request) {
     for (const attachedPdf of attachedPdfs) {
       const buffer = await attachedPdf.arrayBuffer();
       const base64Pdf = Buffer.from(buffer).toString("base64");
-      const uploadResult = await uploadRepo.createUpload({ ...attachedPdf, content: base64Pdf });
+      const uploadResult = await createUpload({ ...attachedPdf, content: base64Pdf });
 
       uploadResults.push({
         filename: uploadResult.filename,

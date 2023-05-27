@@ -1,10 +1,11 @@
-import * as repo from "./repository.js";
+// import * as repo from "./repository.js";
+import { readLocation } from '../prismaRepository.js';
 
 // CRUD operations
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const loc = await repo.readLoc();
+    const loc = await readLocation();
     if (loc.length === 0) {
       return Response.json({ message: " No Location found" }, { status: 404 });
     }

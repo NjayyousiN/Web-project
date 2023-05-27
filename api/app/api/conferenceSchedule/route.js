@@ -1,10 +1,11 @@
-import * as repo from "./repository.js";
+// import * as repo from "./repository.js";
+import { readSchedule, createSchedule} from '../prismaRepository.js';
 
 // CRUD operations
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const schedule = await repo.readSchedule();
+    const schedule = await readSchedule();
     if (schedule.length === 0) {
       return Response.json({ message: "No schedule found" }, { status: 404 });
     }
@@ -24,7 +25,7 @@ export async function POST(request, { params }) {
   // Creates a new collection. The name of the collection is part of the request body
   try {
     const body = await request.json();
-    const schedule = await repo.createSchedule(body);
+    const schedule = await createSchedule(body);
     if (schedule === false) {
       return Response.json(
         { message: "Session already exists" },

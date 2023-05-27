@@ -1,10 +1,11 @@
-import * as repo from "./repository.js";
+// import * as repo from "./repository.js";
+import { readDate } from '../prismaRepository.js';
 
 // CRUD operations
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const date = await repo.readDate();
+    const date = await readDate();
     if (date.length === 0) {
       return Response.json({ message: " No date found" }, { status: 404 });
     }

@@ -1,10 +1,11 @@
-import * as repo from "../repository.js";
+// import * as repo from "../repository.js";
+import { deleteSchedule, updateSchedule} from '../../prismaRepository.js';
 
 export async function DELETE(request, { params }) {
   // Deletes a collection
   try {
     const { title } = params;
-    const schedule = await repo.deleteSchedule(title);
+    const schedule = await deleteSchedule(title);
     if (schedule === false) {
       return Response.json(
         { message: "Session does not exist" },
@@ -26,7 +27,7 @@ export async function PUT(request, { params }) {
   try {
     const { title } = params;
     const body = await request.json();
-    const schedule = await repo.updateSchedule(title, body);
+    const schedule = await updateSchedule(title, body);
     if (schedule === false) {
       return Response.json(
         { message: "Session does not exist" },

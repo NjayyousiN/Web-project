@@ -1,9 +1,10 @@
-import * as authorsRepo from "./repository.js"
+// import * as authorsRepo from "./repository.js"
+import { readAuthors, createAuthor, deleteAuthor} from '../prismaRepository.js';
 
 export async function GET(request, { params }) {
     try {
 
-        const authors = await authorsRepo.readAuthors();
+        const authors = await readAuthors();
 
         return Response.json(authors, {status: 200 });        
     }  catch (err) {
@@ -19,7 +20,7 @@ export async function POST(request, { params }) {
 
         const body = await request.json();
         if ("fname" in body && "lname" in body && "affiliation" in body && "email" in body ) {
-            const author = await authorsRepo.createAuthor({fname: body.fname, lname: body.lname,
+            const author = await createAuthor({fname: body.fname, lname: body.lname,
                  affiliation: body.affiliation, email: body.email});
             return Response.json(author, {status: 201 });        
         }
@@ -36,7 +37,7 @@ export async function DELETE(request, { params }) {
 
     try {
         const { id } = params;
-        const author = await authorsRepo.deleteAuthor(id);
+        const author = await deleteAuthor(id);
         
         if(author) {
             return Response.json(author, { status: 200 })
