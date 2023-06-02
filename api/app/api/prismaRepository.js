@@ -18,6 +18,7 @@ const prisma = new PrismaClient();
       return prisma.user.delete({ where: { id } });
     }
     
+    
     export async function  createSchedule(body) {
       return prisma.conferenceSchedule.create({ data: body });
     }
