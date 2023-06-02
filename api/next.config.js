@@ -18,3 +18,6 @@ module.exports = nextConfig
 //     ];
 //   },
 // };
+
+//Change file extension for the file from ".js" to ".cjs"
+//Add "type": "module" property in "package.json"
