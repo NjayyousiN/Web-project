@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int           @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String        @unique
+  password  String
+  role      String
+  reviews   PaperReview[] @relation("UserReviews")
+  papers    Paper[]       @relation("PaperReviewers")
+  // paperReview PaperReviewer? @relation("ReviewerOf")
+}
+
+model ConferenceSchedule {
+  id        Int    @id @default(autoincrement())
+  title     String
+  date      String
+  location  String
+  presenter String
+  fromTime  String
+  toTime    String
+}
+
+model PDF {
+  id      Int    @id @default(autoincrement())
+  content String
+}
+
+model Paper {
+  id          String          @id @default(cuid())
+  title       String
+  abstract    String
+  pdfURL      String
+  createdAt   DateTime        @default(now())
+  reviewers   User[]          @relation("PaperReviewers")
+  authors     ArticleAuthor[] @relation("AuthorOf")
+  presenter   ArticleAuthor?  @relation("PresenterOf", fields: [presenterId], references: [id])
+  reviews     PaperReview[]   @relation("ReviewOf")
+  presenterId String?
+
+  @@unique([id, presenterId])
+  @@index([presenterId], name: "idx_presenterId")
+}
+
+model ConferenceLocation {
+  id       Int    @id @default(autoincrement())
+  location String
+}
+
+model Institution {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model ConferenceDate {
+  id   Int    @id @default(autoincrement())
+  date String
+}
+
+model ArticleAuthor {
+  id          String  @id @default(cuid())
+  firstName   String
+  lastName    String
+  affiliation String
+  email       String
+  papers      Paper[] @relation("AuthorOf")
+  presenter   Paper[] @relation("PresenterOf")
+}
+
+model PaperReview {
+  id           Int    @id @default(autoincrement())
+  evaluation   Int
+  contribution Int
+  strengths    String
+  weaknesses   String
+  paper        Paper  @relation("ReviewOf", fields: [paperId], references: [id])
+  paperId      String
+  reviewer     User?  @relation("UserReviews", fields: [reviewerId], references: [id])
+  reviewerId   Int?
+}
+
+// Relationships
+// model PaperReviewer {
+//   evaluation    Int?
+//   contribution  Int?
+//   strengths     String?
+//   weaknesses    String?
+//   paper         Paper    @relation("ReviewOf", fields: [paperId], references: [id])
+//   reviewer      User?    @relation("ReviewerOf", fields: [reviewerId], references: [id])
+//   paperId       String @unique
+//   reviewerId    Int @unique
+//   @@id([paperId, reviewerId])
+// }
