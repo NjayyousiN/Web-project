@@ -282,8 +282,9 @@ class ConfPlus {
           paper.reviewers &&
           paper.reviewers.some((reviewer) => reviewer.id === reviewerId)
       );
+      //print all papers
 
-      console.log(`[INFO] Assigned Papers: ${JSON.stringify(assignedPapers)}`);
+      // console.log(`[INFO] Assigned Papers: ${JSON.stringify(assignedPapers)}`);
 
       const assignedPapersContainer =
         document.querySelector("#assigned-papers");
@@ -335,6 +336,16 @@ class ConfPlus {
     const paper = await response.json();
     // Check if the paper already has a review or not
     const reviews = paper.reviews ? paper.reviews : [];
+
+    console.log(
+      `[INFO] Reviews for reviwerid ${reviewerId}: ${JSON.stringify(reviews)}`
+    );
+    console.log(
+      "[info] paper id: " + paperId,
+      "reviewer id: " + reviewerId,
+      "paperTitle: " + paper.title,
+      "reviews: " + reviews
+    );
     const review = reviews.find((r) => r.reviewerId === reviewerId);
 
     if (review) {
@@ -453,8 +464,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           author_lname !== "" &&
           author_email !== "" &&
           author_affiliation !== ""
-        ) 
-        {
+        ) {
           authorDetails = await fetch(
             "http://localhost:3000/api/articleAuthors",
             {
@@ -470,8 +480,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               }),
             }
           );
-        }
-        else {
+        } else {
           alert("Please fill all author details");
           console.error(`[ERROR] An Error occured while adding an author`);
           return;
@@ -490,50 +499,50 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
 
+    // Actions to be taken after clicking on "Remove Author" button
+    document
+      .querySelector("#remove-author")
+      .addEventListener("click", async (e) => {
+        e.preventDefault();
 
-// Actions to be taken after clicking on "Remove Author" button
-document
-  .querySelector("#remove-author")
-  .addEventListener("click", async (e) => {
-    e.preventDefault();
+        const author_fname = document.querySelector("#removeAuthor").value;
+        const authors = await confPlus.getAuthorsData();
+        const selectedAuthor = authors.find(
+          (author) => author.fname === author_fname
+        );
 
-    const author_fname = document.querySelector("#removeAuthor").value;
-    const authors = await confPlus.getAuthorsData();
-    const selectedAuthor = authors.find(
-      (author) => author.fname === author_fname
-    );
+        if (selectedAuthor) {
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`,
+              {
+                method: "DELETE",
+              }
+            );
 
-    if (selectedAuthor) {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/articleAuthors/${selectedAuthor.id}`,
-          {
-            method: "DELETE",
+            // Update the lists
+            await confPlus.populateDropList();
+
+            // Remove the "Removed author" from the array
+            addedAuthors = addedAuthors.filter(
+              (author) => author.id !== selectedAuthor.id
+            );
+
+            if (response.ok) {
+              alert("Author removed successfully");
+            }
+          } catch (err) {
+            alert("Failed to remove author");
+            console.error(
+              `[ERROR] An error occurred during removing author data. ${err}`
+            );
           }
-        );
-
-        // Update the lists
-        await confPlus.populateDropList();
-
-        // Remove the "Removed author" from the array
-        addedAuthors = addedAuthors.filter(
-          (author) => author.id !== selectedAuthor.id
-        );
-
-        if (response.ok) {
-          alert("Author removed successfully");
+        } else {
+          console.error(
+            "[ERROR] Specified author not found while trying to remove"
+          );
         }
-      } catch (err) {
-        alert("Failed to remove author");
-        console.error(
-          `[ERROR] An error occurred during removing author data. ${err}`
-        );
-      }
-    } 
-    else {
-      console.error("[ERROR] Specified author not found while trying to remove");
-    }
-  });
+      });
 
     // Actions to be taken after clicking on "Submit Paper" button
     submitPaperForm.addEventListener("submit", async (e) => {
@@ -541,7 +550,7 @@ document
       console.log("[INFO] Attempting to submit form...");
       let presenter;
       const paper_title = document.querySelector("#title").value;
-      console.log(`[INFO] Paper title: ${paper_title}`); 
+      console.log(`[INFO] Paper title: ${paper_title}`);
       const paper_abstract = document.querySelector("#abstract").value;
       const selectedAuthors = addedAuthors.map(({ fname, lname }) => {
         return { firstName: fname, lastName: lname };

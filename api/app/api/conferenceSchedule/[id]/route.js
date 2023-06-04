@@ -1,17 +1,20 @@
 // import * as repo from "../repository.js";
-import { deleteSchedule, readSchedule, updateSchedule } from '../../prismaRepository.js';
+import {
+  deleteSchedule,
+  readSchedule,
+  updateSchedule,
+} from "../../prismaRepository.js";
 
 export async function GET(request, { params }) {
   // return schedules by id
   try {
     const { id } = params;
     const schedule = await readSchedule(id);
-    if (schedule.length === 0) {
+    if (!schedule) {
       return Response.json({ message: "No schedule found" }, { status: 404 });
     }
-    if (schedule) {
-      return Response.json(schedule, { status: 200 });
-    }
+
+    return Response.json(schedule, { status: 200 });
   } catch (error) {
     console.error(error.message);
     return Response.json(
@@ -20,7 +23,6 @@ export async function GET(request, { params }) {
     );
   }
 }
-
 
 export async function DELETE(request, { params }) {
   // Deletes a collection

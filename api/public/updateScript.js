@@ -46,6 +46,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sessionPresenter = urlParams.get("presenter");
   console.log("INFO", sessionPresenter);
 
+  // extract the session id from the URL
+  const sessionId = urlParams.get("id");
+
+  console.log("INFO", sessionId);
+
   // add the presenter to the dropdown
 
   UpdatedPresenterDropdown.innerHTML = `<option value="${sessionPresenter}">${sessionPresenter}</option>`;
@@ -58,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const date = UpdatedDateDropdown.value;
     const paper_title = UpdatedPaperDropdownTitle.value;
     const presenter = UpdatedPresenterDropdown.value;
-    const FromTime = document.querySelector(".fromTime").value;
+    const FromTime = document.querySelector("#fromTime").value;
     const ToTime = document.querySelector(".toTime").value;
     console.log(
       "INFO: values from the dropdowns:",
@@ -73,12 +78,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // checking the values
 
     // post the values to the database
+
     const res = await fetch(
-      `http://localhost:3000/api/conferenceSchedule/${paper_title}`,
+      `http://localhost:3000/api/conferenceSchedule/${sessionId}`,
       {
         method: "PUT",
         body: JSON.stringify({
-          title: paper_title,
           location: location,
           date: date,
           presenter: presenter,
@@ -97,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       console.log("[ERROR] failed to update data: ", data, date.status);
       alert("Failed to update data");
-      window.location.href = "schedule-editor.html";
+      // window.location.href = "schedule-editor.html";
     }
   });
 });

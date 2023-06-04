@@ -3,7 +3,7 @@ import {
   readPapers,
   createPaper,
   updatePaperReview,
-} from '../prismaRepository.js';
+} from "../prismaRepository.js";
 
 export async function GET(request) {
   try {
@@ -46,8 +46,10 @@ export async function PUT(request) {
     console.log(`[INFO] Request body:`, body);
 
     const { paperId, review } = body;
+
     const updatedPaper = await updatePaperReview(paperId, review);
     console.log(`[INFO] Paper updated with id: ${updatedPaper.id}`);
+    console.log(`[INFO] Paper updated with review: ${updatedPaper.review}`);
 
     return new Response(JSON.stringify(updatedPaper), { status: 200 });
   } catch (err) {
