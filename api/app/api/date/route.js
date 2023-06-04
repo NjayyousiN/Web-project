@@ -1,11 +1,11 @@
 // import * as repo from "./repository.js";
-import { readDate } from '../prismaRepository.js';
+import { readConfDate } from '../prismaRepository.js';
 
 // CRUD operations
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const date = await readDate();
+    const date = await readConfDate();
     if (date.length === 0) {
       return Response.json({ message: " No date found" }, { status: 404 });
     }

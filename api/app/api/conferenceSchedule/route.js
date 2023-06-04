@@ -1,11 +1,11 @@
 // import * as repo from "./repository.js";
-import { readSchedule, createSchedule} from '../prismaRepository.js';
+import { readSchedules, createSchedule } from '../prismaRepository.js';
 
 // CRUD operations
 export async function GET(request, { params }) {
   // return all schedules
   try {
-    const schedule = await readSchedule();
+    const schedule = await readSchedules();
     if (schedule.length === 0) {
       return Response.json({ message: "No schedule found" }, { status: 404 });
     }

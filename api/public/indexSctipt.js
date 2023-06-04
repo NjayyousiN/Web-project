@@ -35,7 +35,7 @@ function loadTemplate(session, index) {
     <p>Date: ${session.date}</p>
   </div> <!-- Add this closing div tag -->
   <div class="session-time">
-    <p>Time: ${session.FromTime} - ${session.ToTime}</p>
+    <p>Time: ${session.fromTime} - ${session.toTime}</p>
   </div>
 </div>`;
 }
@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const filteredSessions = sessions.filter(
         (session) => session.date === selectedDate
       );
+
 
       if (selectedDate !== "") {
         if (filteredSessions.length > 0) {

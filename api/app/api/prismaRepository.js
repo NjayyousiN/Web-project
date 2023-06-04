@@ -31,7 +31,15 @@ export async function createSchedule(body) {
 }
 
 export async function deleteSchedule(id) {
-  return prisma.conferenceSchedule.delete({ where: { id: parseInt(id) } });
+  try {
+    const schedule = await prisma.conferenceSchedule.delete({
+      where: { id: parseInt(id) },
+    });
+    return schedule;
+  } catch (error) {
+    console.error(error.message);
+    return false;
+  }
 }
 
 export async function updateSchedule(id, body) {
@@ -58,8 +66,20 @@ export async function readLocation() {
 }
 
 export async function createPaper(paper) {
-  return prisma.paper.create({ data: paper });
+  const { authors, ...paperData } = paper;
+
+  const createdPaper = await prisma.paper.create({
+    data: {
+      ...paperData,
+      authors: {
+        connect: authors.map(author => ({ id: author.id }))
+      }
+    },
+  });
+
+  return createdPaper;
 }
+
 
 export async function readPapers(type) {
   return prisma.paper.findMany({ where: { title: type } });
@@ -97,7 +117,11 @@ export async function readUsers(role) {
   return prisma.user.findMany({ where: { role } });
 }
 
-export async function readSchedule() {
+export async function readSchedules() {
   return prisma.conferenceSchedule.findMany();
+}
+
+export async function readSchedule(id) {
+  return prisma.conferenceSchedule.findUnique({ where: { id: parseInt(id) } });
 }
 

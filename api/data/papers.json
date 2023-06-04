@@ -3,8 +3,14 @@
     "title": "testing_case3",
     "abstract": "testing_case3testing_case3testing_case3testing_case3testing_case3testing_case3testing_case3testing_case3",
     "authors": [
-      { "firstName": "testing_case3", "lastName": "testing_case3@3" },
-      { "firstName": "testing_case4", "lastName": "testing_case4@3" }
+      {
+        "firstName": "testing_case3",
+        "lastName": "testing_case3@3"
+      },
+      {
+        "firstName": "testing_case4",
+        "lastName": "testing_case4@3"
+      }
     ],
     "presenter": {
       "fname": "testing_case3",
@@ -16,8 +22,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/ec90f729-468e-4c8b-9399-6b11b31bed7f",
     "reviewers": [
-      { "id": 10, "first_name": "Mia" },
-      { "id": 6, "first_name": "Emily" }
+      {
+        "id": 10,
+        "first_name": "Mia"
+      },
+      {
+        "id": 6,
+        "first_name": "Emily"
+      }
     ],
     "id": "8xAiaIwx_VO0fXLEFrchR",
     "createdat": "2023-04-22T15:48:31.147Z",
@@ -41,7 +53,12 @@
   {
     "title": "testingcase3",
     "abstract": "testingcase3",
-    "authors": [{ "firstName": "testingcase3", "lastName": "testingcase3" }],
+    "authors": [
+      {
+        "firstName": "testingcase3",
+        "lastName": "testingcase3"
+      }
+    ],
     "presenter": {
       "fname": "testingcase3",
       "lname": "testingcase3",
@@ -52,8 +69,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/8df72f98-9663-4e26-9c11-f5b3312bf128",
     "reviewers": [
-      { "id": 5, "first_name": "David" },
-      { "id": 10, "first_name": "Mia" }
+      {
+        "id": 5,
+        "first_name": "David"
+      },
+      {
+        "id": 10,
+        "first_name": "Mia"
+      }
     ],
     "id": "tlsP_64c2yaRmO-szj2Uk",
     "createdat": "2023-04-22T19:11:41.468Z",
@@ -78,8 +101,14 @@
     "title": "test1234",
     "abstract": "lorem absm",
     "authors": [
-      { "firstName": "test", "lastName": "testtt" },
-      { "firstName": "finaaaaaaaltest", "lastName": "finaaaaaaaltest" }
+      {
+        "firstName": "test",
+        "lastName": "testtt"
+      },
+      {
+        "firstName": "finaaaaaaaltest",
+        "lastName": "finaaaaaaaltest"
+      }
     ],
     "presenter": {
       "fname": "finaaaaaaaltest",
@@ -91,8 +120,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/fda4c8a6-a4e5-4b3e-8c64-63005168b101",
     "reviewers": [
-      { "id": 4, "first_name": "Alice" },
-      { "id": 12, "first_name": "Ava" }
+      {
+        "id": 4,
+        "first_name": "Alice"
+      },
+      {
+        "id": 12,
+        "first_name": "Ava"
+      }
     ],
     "id": "L6TmveNLmtBLtsOx9YRrk",
     "createdat": "2023-04-27T12:54:32.094Z"
@@ -109,7 +144,12 @@
   {
     "title": "titlehellotitlehello",
     "abstract": "titlehello",
-    "authors": [{ "firstName": "titlehello", "lastName": "titlehello" }],
+    "authors": [
+      {
+        "firstName": "titlehello",
+        "lastName": "titlehello"
+      }
+    ],
     "presenter": {
       "fname": "titlehello",
       "lname": "titlehello",
@@ -120,8 +160,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/0153b36c-3930-4d86-954a-8f85155feee0",
     "reviewers": [
-      { "id": 11, "first_name": "Noah" },
-      { "id": 3, "first_name": "Bob" }
+      {
+        "id": 11,
+        "first_name": "Noah"
+      },
+      {
+        "id": 3,
+        "first_name": "Bob"
+      }
     ],
     "id": "wPNjbiar2LQ-Gglwn9_x3",
     "createdat": "2023-04-30T14:09:30.047Z"
@@ -130,8 +176,14 @@
     "title": "gsdfgsdf",
     "abstract": "fsgsfgfsdg",
     "authors": [
-      { "firstName": "dfsgdsfg", "lastName": "fdsgdfsg" },
-      { "firstName": "titlehello", "lastName": "titlehello" }
+      {
+        "firstName": "dfsgdsfg",
+        "lastName": "fdsgdfsg"
+      },
+      {
+        "firstName": "titlehello",
+        "lastName": "titlehello"
+      }
     ],
     "presenter": {
       "fname": "titlehello",
@@ -143,8 +195,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/08b7e706-8fa2-496f-8dc2-9eb11096f77d",
     "reviewers": [
-      { "id": 3, "first_name": "Bob" },
-      { "id": 7, "first_name": "Oliver" }
+      {
+        "id": 3,
+        "first_name": "Bob"
+      },
+      {
+        "id": 7,
+        "first_name": "Oliver"
+      }
     ],
     "id": "IaxPtmK-Tl2zrECvPEU0q",
     "createdat": "2023-04-30T16:16:52.476Z"
@@ -152,7 +210,12 @@
   {
     "title": "dads",
     "abstract": "assda",
-    "authors": [{ "firstName": "titlehello", "lastName": "titlehello" }],
+    "authors": [
+      {
+        "firstName": "titlehello",
+        "lastName": "titlehello"
+      }
+    ],
     "presenter": {
       "fname": "titlehello",
       "lname": "titlehello",
@@ -163,8 +226,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/f544928c-6e5e-45b7-8ccc-bbc439d3aad7",
     "reviewers": [
-      { "id": 6, "first_name": "Emily" },
-      { "id": 4, "first_name": "Alice" }
+      {
+        "id": 6,
+        "first_name": "Emily"
+      },
+      {
+        "id": 4,
+        "first_name": "Alice"
+      }
     ],
     "id": "faMOrUoUr_ZpK5w6iPAPs",
     "createdat": "2023-04-30T20:37:31.196Z"
@@ -173,8 +242,14 @@
     "title": "Test4",
     "abstract": "Abstract ideas",
     "authors": [
-      { "firstName": "nas", "lastName": "jay" },
-      { "firstName": "testing5", "lastName": "testing5" }
+      {
+        "firstName": "nas",
+        "lastName": "jay"
+      },
+      {
+        "firstName": "testing5",
+        "lastName": "testing5"
+      }
     ],
     "presenter": {
       "fname": "testing5",
@@ -186,8 +261,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/467f869b-3d7d-4db1-a122-b8123df824ca",
     "reviewers": [
-      { "id": 13, "first_name": "Jacob" },
-      { "id": 7, "first_name": "Oliver" }
+      {
+        "id": 13,
+        "first_name": "Jacob"
+      },
+      {
+        "id": 7,
+        "first_name": "Oliver"
+      }
     ],
     "id": "zGWoDvMrJsYFwO-DAdJTm",
     "createdat": "2023-05-02T03:01:30.366Z"
@@ -195,7 +276,12 @@
   {
     "title": "fadasdfsdaf",
     "abstract": "fasdfsdaff",
-    "authors": [{ "firstName": "dfsgdsfg", "lastName": "fdsgdfsg" }],
+    "authors": [
+      {
+        "firstName": "dfsgdsfg",
+        "lastName": "fdsgdfsg"
+      }
+    ],
     "presenter": {
       "fname": "dfsgdsfg",
       "lname": "fdsgdfsg",
@@ -206,8 +292,14 @@
     },
     "pdfURL": "blob:http://localhost:3000/a8541c74-a502-4892-adb8-47cf156d61c3",
     "reviewers": [
-      { "id": 8, "first_name": "Sophie" },
-      { "id": 5, "first_name": "David" }
+      {
+        "id": 8,
+        "first_name": "Sophie"
+      },
+      {
+        "id": 5,
+        "first_name": "David"
+      }
     ],
     "id": "KpZitjWTaTO123oqNWksP",
     "createdat": "2023-05-02T03:13:01.731Z",
